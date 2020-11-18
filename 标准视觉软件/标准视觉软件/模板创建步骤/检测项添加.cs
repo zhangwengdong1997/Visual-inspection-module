@@ -57,7 +57,7 @@ namespace 标准视觉软件
                 matchingWay.Find(m_hoImage, out m_hoImage);
             }
             HalconDisplay(m_hvWindowHandle, m_hoImage);
-
+            检测项设置.SetHalconImage(m_hoImage);
         }
 
         private void DisplayWindowsInitial()
@@ -91,7 +91,6 @@ namespace 标准视觉软件
             {
                 HTuple Width = null, Height = null;
                 HOperatorSet.GetImagePointer1(Hobj, out _, out _, out Width, out Height);
-                HOperatorSet.SetPart(hWindow, 0, 0, Height, Width);
                 HOperatorSet.SetPart(hWindow, 0, 0, Height - 1, Width - 1);// ch: 使图像显示适应窗口大小 || en: Make the image adapt the window size
             }
             catch (Exception ex)
@@ -119,6 +118,7 @@ namespace 标准视觉软件
         {
             检测项设置 = MyRun.GetParameterSettingControl(cmb选择检测项.Text);
             检测项设置.SetHalconWindow(m_hvWindowHandle);
+
             pnl参数设置.Controls.Clear();
             pnl参数设置.Controls.Add((Control)检测项设置);
         }
@@ -140,6 +140,7 @@ namespace 标准视觉软件
                     matchingWay.Find(m_hoImage, out m_hoImage);
                 }
                 HalconDisplay(m_hvWindowHandle, m_hoImage);
+                检测项设置.SetHalconImage(m_hoImage);
                 count %= ImagesPath.Length;
             }
         }

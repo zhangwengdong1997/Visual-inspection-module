@@ -26,7 +26,14 @@ namespace 标准视觉软件
 
         public static string [] GetFiles(string path)
         {
-            return Directory.GetFiles(path, "*.jpg");
+            Directory.CreateDirectory(path);
+            string[] jpgPaths = Directory.GetFiles(path, "*.jpg");
+            string[] bmpPaths = Directory.GetFiles(path, "*.bmp");
+            string[] imagePaths = new string[jpgPaths.Length + bmpPaths.Length];
+
+            jpgPaths.CopyTo(imagePaths, 0);
+            bmpPaths.CopyTo(imagePaths, jpgPaths.Length);
+            return imagePaths;
         }
 
         public static void BindAllFiles(string path, ComboBox comboxlist)

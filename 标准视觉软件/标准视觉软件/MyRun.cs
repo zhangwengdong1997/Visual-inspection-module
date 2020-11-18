@@ -34,6 +34,8 @@ namespace 标准视觉软件
             ParameterSettingControls = new Dictionary<string, 检测参数设置>();
             字符识别参数设置 字符识别 = new 字符识别参数设置();
             ParameterSettingControls.Add("字符识别", 字符识别);
+            区域筛选计数参数设置 区域筛选计数 = new 区域筛选计数参数设置();
+            ParameterSettingControls.Add("区域筛选计数", 区域筛选计数);
 
             //加载可选预处理功能
             ImagePreprocessFun = new Dictionary<string, 预处理功能>();

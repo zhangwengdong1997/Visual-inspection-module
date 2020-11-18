@@ -14,8 +14,7 @@ namespace 标准视觉软件
         string standardText;
         int charCount;
         int lightOnDark;
-        float row1, column1, row2, column2;
-        
+        float row1, column1, row2, column2;        
         HObject ho_inRegion;
         string result;
         public 字符识别(string camName, Matching matching, List<Parameter> inParameters)

@@ -108,7 +108,7 @@ namespace 标准视觉软件
         }
 
         private void txt相机曝光值_TextChanged(object sender, EventArgs e)
-        {
+         {
             if (float.TryParse(txt相机曝光值.Text, out exposureTime))
             {
                 if (exposureTime < 100 || exposureTime > 2000000)

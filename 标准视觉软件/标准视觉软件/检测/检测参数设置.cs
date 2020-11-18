@@ -18,7 +18,7 @@ namespace 标准视觉软件
 
         void SetHalconWindow(HWindow hWindow);
 
-        bool Prepare(List<Parameter> inParameters);
+        void SetHalconImage(HObject ho_image);
 
         void Find(HObject inImage, List<Parameter> inParameters, out string outMessage);
     }

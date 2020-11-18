@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 标准视觉软件.检测
+namespace 标准视觉软件
 {
     class 区域筛选计数 : 检测功能
     {

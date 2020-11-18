@@ -130,7 +130,8 @@ namespace 标准视觉软件
         区域 = 2,
         图片 = 3,
         文件 = 4,
-        是否 = 5
+        是否 = 5,
+        阈值 = 6
     }
 
     public class Matching

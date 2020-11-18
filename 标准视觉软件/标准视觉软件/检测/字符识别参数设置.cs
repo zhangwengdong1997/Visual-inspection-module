@@ -71,6 +71,11 @@ namespace 标准视觉软件
             this.hWindow = hWindow;
         }
 
+        public void SetHalconImage(HObject ho_image)
+        {
+            
+        }
+
         private void btn选择区域_Click(object sender, EventArgs e)
         {
             btn选择区域.Enabled = false;
@@ -99,11 +104,6 @@ namespace 标准视觉软件
             return "字符识别";
         }
 
-        public bool Prepare(List<Parameter> inParameters)
-        {
-            return true;
-        }
-
         public void Find(HObject inImage, List<Parameter> inParameters, out string outMessage)
         {
             string ocrClassifier = Application.StartupPath + "\\OCR\\" + inParameters[0].value as string;
@@ -116,14 +116,12 @@ namespace 标准视觉软件
             column1 = (inParameters[4].value as float[])[1];
             row2 = (inParameters[4].value as float[])[2];
             column2 = (inParameters[4].value as float[])[3];
-            HObject ho_inRegion;
-            HOperatorSet.GenRectangle1(out ho_inRegion, row1, column1, row2, column2);
-            HTuple hv_Word;
-            myOcrSplit(inImage, ho_inRegion, ocrClassifier, standardText, charCount, 0, lightOnDark, out hv_Word);
+            HOperatorSet.GenRectangle1(out HObject ho_inRegion, row1, column1, row2, column2);
+            myOcrSplit(inImage, ho_inRegion, ocrClassifier, standardText, charCount, 0, lightOnDark, out HTuple hv_Word);
             outMessage = hv_Word.S;
         }
 
-        public int myOcrSplit(HObject ho_inImage, HObject ho_inRegion, HTuple hv_ocrClassifier,
+        private int myOcrSplit(HObject ho_inImage, HObject ho_inRegion, HTuple hv_ocrClassifier,
             HTuple hv_standardText, HTuple hv_charCount, HTuple hv_returnPunctuation, HTuple hv_lightOnDark,
             out HTuple hv_Word)
         {
@@ -361,7 +359,7 @@ namespace 标准视觉软件
             return nRet;
         }
 
-        public void myStringToRegular(HTuple hv_standardText, out HTuple hv_getRegular)
+        private void myStringToRegular(HTuple hv_standardText, out HTuple hv_getRegular)
         {
             HTuple hv_regularModel = null, hv_Length = null;
             HTuple hv_Index2 = null, hv_Index3 = new HTuple(), hv_Selected = new HTuple();
