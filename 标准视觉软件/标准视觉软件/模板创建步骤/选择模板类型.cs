@@ -31,6 +31,9 @@ namespace 标准视觉软件
         {
             model.modelName = txt模板名称.Text;
             model.camNum = camNum;
+            model.nowStep++;
+            model.steps.Clear();
+            model.steps.Add(StepName.选择模板类型);
             for (int i = 0; i < model.camNum; i++)
             {
                 if (chb相机配置.Checked)
@@ -62,7 +65,6 @@ namespace 标准视觉软件
                     model.steps.Add(StepName.检测项添加);
                 }
             }
-
         }
 
         private void txt相机数量_TextChanged(object sender, EventArgs e)

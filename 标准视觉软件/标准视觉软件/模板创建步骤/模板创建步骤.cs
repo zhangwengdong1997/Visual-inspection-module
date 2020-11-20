@@ -9,5 +9,7 @@ namespace 标准视觉软件
     interface 模板创建步骤
     {
         void Save(Model model);
+
+       
     }
 }

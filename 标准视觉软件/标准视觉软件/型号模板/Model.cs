@@ -48,6 +48,10 @@ namespace 标准视觉软件
         /// 检测步骤
         /// </summary>
         public List<StepName> steps { get; set; }
+        /// <summary>
+        /// 当前步骤
+        /// </summary>
+        public int nowStep { get; set; }
 
         public Model()
         {
@@ -56,6 +60,7 @@ namespace 标准视觉软件
             matchings = new List<Matching>();
             testItems = new List<TestItem>();
             steps = new List<StepName>();
+            nowStep = 0;
         }
     }
     public enum StepName
@@ -77,10 +82,6 @@ namespace 标准视觉软件
         /// 曝光时间
         /// </summary>
         public float ExposureTime { get; set; }
-        /// <summary>
-        /// 图像预处理
-        /// </summary>
-        public ImagePreprocess imagePreprocess { get; set; }
 
         public Cam(string camName, float exposureTime)
         {

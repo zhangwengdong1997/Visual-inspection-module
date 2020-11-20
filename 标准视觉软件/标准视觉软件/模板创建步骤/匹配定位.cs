@@ -42,7 +42,9 @@ namespace 标准视觉软件
             {
                 model.nowMatching = null;
             }
+            model.nowStep++;
         }
+
 
         private void 匹配定位_Load(object sender, EventArgs e)
         {

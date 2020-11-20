@@ -19,7 +19,6 @@ namespace 标准视觉软件
         检测项添加 testItemsAddWindow;
 
         Model model;
-        int nowStep;
 
         public 新建模板()
         {
@@ -36,25 +35,49 @@ namespace 标准视觉软件
             imagePretreatWindow = new 图像预处理();
             matchingWindow = new 匹配定位(model);
             testItemsAddWindow = new 检测项添加(model);
-            nowStep = 0;
             panelMain.Controls.Add(chooseModelTypeWindow);
-
+            btn上一步.Visible = false;
+            model.steps.Add(StepName.选择模板类型);
         }
+
+
 
         private void btn下一步_Click(object sender, EventArgs e)
         {
             (panelMain.Controls[0] as 模板创建步骤).Save(model);
-            if (nowStep == model.steps.Count)
+            if (model.nowStep == model.steps.Count)
             {
                 MyRun.WriteModelJS(model);
                 this.Close();
                 return;
             }
             panelMain.Controls.Clear();   
-            panelMain.Controls.Add(GetStepWindow(model.steps[nowStep++]));
-            if (nowStep == model.steps.Count) { btn下一步.Text = "完成"; }
+            panelMain.Controls.Add(GetStepWindow(model.steps[model.nowStep]));
+            if (model.nowStep + 1 == model.steps.Count) { btn下一步.Text = "完成"; }
+            if (model.nowStep != 0)
+            {
+                btn上一步.Visible = true;
+            }
         }
 
+        public void ShowNowModel()
+        {
+            txt当前型号.Text = model.modelName;
+            txt当前相机.Text = model.nowCam;
+
+        }
+
+        private void btn上一步_Click(object sender, EventArgs e)
+        {
+            if(model.nowStep == 1)
+            {
+                btn上一步.Visible = false;
+            }
+            model.nowStep--;
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(GetStepWindow(model.steps[model.nowStep]));
+            btn下一步.Text = "下一步";
+        }
         private Control GetStepWindow(StepName stepName)
         {
             switch (stepName)
@@ -78,5 +101,7 @@ namespace 标准视觉软件
         {
             
         }
+
+        
     }
 }

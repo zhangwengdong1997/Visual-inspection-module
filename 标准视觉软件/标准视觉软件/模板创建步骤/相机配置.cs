@@ -165,7 +165,9 @@ namespace 标准视觉软件
         {
             model.cams.Add(new Cam(camName, exposureTime));
             model.nowCam = camName;
+            model.nowStep++;
         }
+
 
         private void rdo相机模式_CheckedChanged(object sender, EventArgs e)
         {

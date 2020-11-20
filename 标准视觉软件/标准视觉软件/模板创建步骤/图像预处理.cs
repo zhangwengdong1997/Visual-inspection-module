@@ -17,9 +17,10 @@ namespace 标准视觉软件
             InitializeComponent();
         }
 
+
         public void Save(Model model)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

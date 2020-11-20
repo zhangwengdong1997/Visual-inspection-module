@@ -37,7 +37,9 @@ namespace 标准视觉软件
             检测项设置.Save(ref parameters);
             testItem.parameters = parameters;
             model.testItems.Add(testItem);
+            model.nowStep++;
         }
+
 
         private void 检测项添加_Load(object sender, EventArgs e)
         {
