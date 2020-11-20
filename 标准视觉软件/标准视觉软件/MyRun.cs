@@ -150,11 +150,18 @@ namespace 标准视觉软件
 
         public static void TriggerDetection()
         {
-            foreach (var testItem in UseTestItems)
+            Dictionary<string, HObject> Images = new Dictionary<string, HObject>();
+            foreach (var camName in UseCamsName)
             {
                 HObject outImage;
+                int nRet = cameraCltr.Capture(camName, out outImage);
+                if (nRet == 0)
+                    Images.Add(camName, outImage);
+            }
+            foreach (var testItem in UseTestItems)
+            {
+                HObject outImage = Images[testItem.camName];
                 HObject resultImage;
-                int nRet = cameraCltr.Capture(testItem.camName, out outImage);
                 if(testItem.imagePreprocess != null)
                 {
                     ImagePreprocessFun[testItem.imagePreprocess.type].Read(Application.StartupPath + "\\model\\" + UseModel.modelName, testItem.imagePreprocess.name);
@@ -168,7 +175,7 @@ namespace 标准视觉软件
                 }
                 testItem.Find(outImage);
                 testItem.Show(outImage, out resultImage);
-                DetectionOnceEvent?.Invoke(null, new DetectionResult(testItem.camName, outImage, resultImage, testItem.outMessage));
+                DetectionOnceEvent?.Invoke(null, new DetectionResult(testItem.camName, Images[testItem.camName], resultImage, testItem.outMessage));
             }
         }
 

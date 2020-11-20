@@ -125,6 +125,12 @@
     <Compile Include="模板创建步骤\选择模板类型.Designer.cs">
       <DependentUpon>选择模板类型.cs</DependentUpon>
     </Compile>
+    <Compile Include="界面\型号列表项.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="界面\型号列表项.Designer.cs">
+      <DependentUpon>型号列表项.cs</DependentUpon>
+    </Compile>
     <Compile Include="界面\型号选择.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="模板创建步骤\选择模板类型.resx">
       <DependentUpon>选择模板类型.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="界面\型号列表项.resx">
+      <DependentUpon>型号列表项.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="界面\型号选择.resx">
       <DependentUpon>型号选择.cs</DependentUpon>

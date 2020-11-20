@@ -309,6 +309,7 @@
             this.txtPhi.Name = "txtPhi";
             this.txtPhi.Size = new System.Drawing.Size(64, 21);
             this.txtPhi.TabIndex = 17;
+            this.txtPhi.Text = "0";
             // 
             // txtLength2
             // 
@@ -316,6 +317,7 @@
             this.txtLength2.Name = "txtLength2";
             this.txtLength2.Size = new System.Drawing.Size(66, 21);
             this.txtLength2.TabIndex = 14;
+            this.txtLength2.Text = "0";
             // 
             // txtLength1
             // 
@@ -323,6 +325,7 @@
             this.txtLength1.Name = "txtLength1";
             this.txtLength1.Size = new System.Drawing.Size(64, 21);
             this.txtLength1.TabIndex = 13;
+            this.txtLength1.Text = "0";
             // 
             // txtColumn
             // 
@@ -330,6 +333,7 @@
             this.txtColumn.Name = "txtColumn";
             this.txtColumn.Size = new System.Drawing.Size(66, 21);
             this.txtColumn.TabIndex = 10;
+            this.txtColumn.Text = "0";
             // 
             // txtRow
             // 
@@ -337,6 +341,7 @@
             this.txtRow.Name = "txtRow";
             this.txtRow.Size = new System.Drawing.Size(64, 21);
             this.txtRow.TabIndex = 9;
+            this.txtRow.Text = "0";
             // 
             // label11
             // 

@@ -346,6 +346,7 @@ namespace 标准视觉软件
         {
             if (matchingWay == null)
                 return;
+            
             matchingName = "abc";
             matchingWay.Write(Application.StartupPath + "\\model\\" + model.modelName, matchingName);
         }

@@ -14,6 +14,7 @@ namespace 标准视觉软件
     {
         int allCamNum;
         int camNum = 1;
+        int testItemNum = 1;
 
         public 选择模板类型()
         {
@@ -56,13 +57,9 @@ namespace 标准视觉软件
                 {
                     //默认定位模板
                 }
-                if (chb检测项添加.Checked)
+                for(int j = 0; j < testItemNum; j++)
                 {
                     model.steps.Add(StepName.检测项添加);
-                }
-                else
-                {
-                    //默认检测项
                 }
             }
 
@@ -92,6 +89,35 @@ namespace 标准视觉软件
         {
             string modelName = txt模板名称.Text;
             //查找已有模板名称，模板名称是否重复（未完成）
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txt相机数量.Text = "1";
+            chb相机配置.Checked = true;
+            chb图像预处理.Checked = false;
+            chb匹配定位.Checked = false;
+            txt检测项数量.Text = "1";
+        }
+
+        private void txt检测项数量_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(txt检测项数量.Text, out testItemNum))
+            {
+                if (testItemNum < 0)
+                {
+                    lab检测项数量提示.Text = "输入检测项数量不能小于零";
+                }
+                else
+                {
+                    lab检测项数量提示.Text = "";
+                }
+            }
+            else
+            {
+                lab检测项数量提示.Text = "请输入该模板需要检测的点数量";
+                txt检测项数量.Text = "";
+            }
         }
     }
 }

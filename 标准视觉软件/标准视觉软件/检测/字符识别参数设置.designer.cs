@@ -201,6 +201,7 @@
             this.txtColumn2.Name = "txtColumn2";
             this.txtColumn2.Size = new System.Drawing.Size(66, 21);
             this.txtColumn2.TabIndex = 6;
+            this.txtColumn2.Text = "0";
             // 
             // txtColumn1
             // 
@@ -208,6 +209,7 @@
             this.txtColumn1.Name = "txtColumn1";
             this.txtColumn1.Size = new System.Drawing.Size(66, 21);
             this.txtColumn1.TabIndex = 5;
+            this.txtColumn1.Text = "0";
             // 
             // txtRow2
             // 
@@ -215,6 +217,7 @@
             this.txtRow2.Name = "txtRow2";
             this.txtRow2.Size = new System.Drawing.Size(64, 21);
             this.txtRow2.TabIndex = 4;
+            this.txtRow2.Text = "0";
             // 
             // txtRow1
             // 
@@ -222,6 +225,7 @@
             this.txtRow1.Name = "txtRow1";
             this.txtRow1.Size = new System.Drawing.Size(64, 21);
             this.txtRow1.TabIndex = 3;
+            this.txtRow1.Text = "0";
             // 
             // label6
             // 
