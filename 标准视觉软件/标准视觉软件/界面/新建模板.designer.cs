@@ -36,9 +36,13 @@
             this.lab当前相机 = new System.Windows.Forms.Label();
             this.lab当前定位 = new System.Windows.Forms.Label();
             this.lab当前检测项 = new System.Windows.Forms.Label();
-            this.cmb相机列表 = new System.Windows.Forms.ComboBox();
-            this.cmb定位 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmb当前相机 = new System.Windows.Forms.ComboBox();
+            this.cmb当前定位 = new System.Windows.Forms.ComboBox();
+            this.cmb当前检测项 = new System.Windows.Forms.ComboBox();
+            this.cmb当前图像预处理 = new System.Windows.Forms.ComboBox();
+            this.lab当前图像预处理 = new System.Windows.Forms.Label();
+            this.palNow = new System.Windows.Forms.Panel();
+            this.palNow.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn下一步
@@ -53,9 +57,9 @@
             // 
             // panelMain
             // 
-            this.panelMain.Location = new System.Drawing.Point(22, 54);
+            this.panelMain.Location = new System.Drawing.Point(22, 53);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1104, 675);
+            this.panelMain.Size = new System.Drawing.Size(1104, 676);
             this.panelMain.TabIndex = 10;
             // 
             // btn上一步
@@ -71,84 +75,117 @@
             // lab当前型号
             // 
             this.lab当前型号.AutoSize = true;
-            this.lab当前型号.Location = new System.Drawing.Point(54, 16);
+            this.lab当前型号.Location = new System.Drawing.Point(40, 11);
             this.lab当前型号.Name = "lab当前型号";
             this.lab当前型号.Size = new System.Drawing.Size(53, 12);
             this.lab当前型号.TabIndex = 12;
-            this.lab当前型号.Text = "当前型号";
+            this.lab当前型号.Text = "模板型号";
             // 
             // txt当前型号
             // 
-            this.txt当前型号.Location = new System.Drawing.Point(132, 12);
+            this.txt当前型号.Location = new System.Drawing.Point(107, 7);
             this.txt当前型号.Name = "txt当前型号";
             this.txt当前型号.ReadOnly = true;
-            this.txt当前型号.Size = new System.Drawing.Size(84, 21);
+            this.txt当前型号.Size = new System.Drawing.Size(111, 21);
             this.txt当前型号.TabIndex = 13;
             // 
             // lab当前相机
             // 
             this.lab当前相机.AutoSize = true;
-            this.lab当前相机.Location = new System.Drawing.Point(275, 16);
+            this.lab当前相机.Location = new System.Drawing.Point(262, 11);
             this.lab当前相机.Name = "lab当前相机";
-            this.lab当前相机.Size = new System.Drawing.Size(53, 12);
+            this.lab当前相机.Size = new System.Drawing.Size(29, 12);
             this.lab当前相机.TabIndex = 14;
-            this.lab当前相机.Text = "当前相机";
+            this.lab当前相机.Text = "相机";
             // 
             // lab当前定位
             // 
             this.lab当前定位.AutoSize = true;
-            this.lab当前定位.Location = new System.Drawing.Point(512, 16);
+            this.lab当前定位.Location = new System.Drawing.Point(694, 10);
             this.lab当前定位.Name = "lab当前定位";
-            this.lab当前定位.Size = new System.Drawing.Size(53, 12);
+            this.lab当前定位.Size = new System.Drawing.Size(29, 12);
             this.lab当前定位.TabIndex = 16;
-            this.lab当前定位.Text = "当前定位";
+            this.lab当前定位.Text = "定位";
             // 
             // lab当前检测项
             // 
             this.lab当前检测项.AutoSize = true;
-            this.lab当前检测项.Location = new System.Drawing.Point(767, 16);
+            this.lab当前检测项.Location = new System.Drawing.Point(892, 11);
             this.lab当前检测项.Name = "lab当前检测项";
-            this.lab当前检测项.Size = new System.Drawing.Size(65, 12);
+            this.lab当前检测项.Size = new System.Drawing.Size(41, 12);
             this.lab当前检测项.TabIndex = 18;
-            this.lab当前检测项.Text = "当前检测项";
+            this.lab当前检测项.Text = "检测项";
             // 
-            // cmb相机列表
+            // cmb当前相机
             // 
-            this.cmb相机列表.FormattingEnabled = true;
-            this.cmb相机列表.Location = new System.Drawing.Point(334, 12);
-            this.cmb相机列表.Name = "cmb相机列表";
-            this.cmb相机列表.Size = new System.Drawing.Size(147, 20);
-            this.cmb相机列表.TabIndex = 20;
+            this.cmb当前相机.FormattingEnabled = true;
+            this.cmb当前相机.Location = new System.Drawing.Point(305, 7);
+            this.cmb当前相机.Name = "cmb当前相机";
+            this.cmb当前相机.Size = new System.Drawing.Size(111, 20);
+            this.cmb当前相机.TabIndex = 20;
+            this.cmb当前相机.SelectedIndexChanged += new System.EventHandler(this.cmb当前相机_SelectedIndexChanged);
             // 
-            // cmb定位
+            // cmb当前定位
             // 
-            this.cmb定位.FormattingEnabled = true;
-            this.cmb定位.Location = new System.Drawing.Point(571, 12);
-            this.cmb定位.Name = "cmb定位";
-            this.cmb定位.Size = new System.Drawing.Size(147, 20);
-            this.cmb定位.TabIndex = 21;
+            this.cmb当前定位.FormattingEnabled = true;
+            this.cmb当前定位.Location = new System.Drawing.Point(737, 7);
+            this.cmb当前定位.Name = "cmb当前定位";
+            this.cmb当前定位.Size = new System.Drawing.Size(111, 20);
+            this.cmb当前定位.TabIndex = 21;
+            this.cmb当前定位.SelectedIndexChanged += new System.EventHandler(this.cmb当前定位_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmb当前检测项
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(865, 13);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(147, 20);
-            this.comboBox2.TabIndex = 21;
+            this.cmb当前检测项.FormattingEnabled = true;
+            this.cmb当前检测项.Location = new System.Drawing.Point(947, 7);
+            this.cmb当前检测项.Name = "cmb当前检测项";
+            this.cmb当前检测项.Size = new System.Drawing.Size(111, 20);
+            this.cmb当前检测项.TabIndex = 21;
+            this.cmb当前检测项.SelectedIndexChanged += new System.EventHandler(this.cmb当前检测项_SelectedIndexChanged);
+            this.cmb当前检测项.DropDownClosed += new System.EventHandler(this.cmb当前检测项_DropDownClosed);
+            // 
+            // cmb当前图像预处理
+            // 
+            this.cmb当前图像预处理.FormattingEnabled = true;
+            this.cmb当前图像预处理.Location = new System.Drawing.Point(539, 7);
+            this.cmb当前图像预处理.Name = "cmb当前图像预处理";
+            this.cmb当前图像预处理.Size = new System.Drawing.Size(111, 20);
+            this.cmb当前图像预处理.TabIndex = 23;
+            this.cmb当前图像预处理.SelectedIndexChanged += new System.EventHandler(this.cmb当前图像预处理_SelectedIndexChanged);
+            // 
+            // lab当前图像预处理
+            // 
+            this.lab当前图像预处理.AutoSize = true;
+            this.lab当前图像预处理.Location = new System.Drawing.Point(460, 11);
+            this.lab当前图像预处理.Name = "lab当前图像预处理";
+            this.lab当前图像预处理.Size = new System.Drawing.Size(65, 12);
+            this.lab当前图像预处理.TabIndex = 22;
+            this.lab当前图像预处理.Text = "图像预处理";
+            // 
+            // palNow
+            // 
+            this.palNow.Controls.Add(this.cmb当前检测项);
+            this.palNow.Controls.Add(this.cmb当前图像预处理);
+            this.palNow.Controls.Add(this.lab当前型号);
+            this.palNow.Controls.Add(this.lab当前图像预处理);
+            this.palNow.Controls.Add(this.txt当前型号);
+            this.palNow.Controls.Add(this.lab当前相机);
+            this.palNow.Controls.Add(this.cmb当前定位);
+            this.palNow.Controls.Add(this.lab当前定位);
+            this.palNow.Controls.Add(this.cmb当前相机);
+            this.palNow.Controls.Add(this.lab当前检测项);
+            this.palNow.Location = new System.Drawing.Point(22, 12);
+            this.palNow.Name = "palNow";
+            this.palNow.Size = new System.Drawing.Size(1075, 35);
+            this.palNow.TabIndex = 24;
+            this.palNow.Visible = false;
             // 
             // 新建模板
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1138, 806);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.cmb定位);
-            this.Controls.Add(this.cmb相机列表);
-            this.Controls.Add(this.lab当前检测项);
-            this.Controls.Add(this.lab当前定位);
-            this.Controls.Add(this.lab当前相机);
-            this.Controls.Add(this.txt当前型号);
-            this.Controls.Add(this.lab当前型号);
+            this.Controls.Add(this.palNow);
             this.Controls.Add(this.btn上一步);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.btn下一步);
@@ -156,8 +193,9 @@
             this.Text = "新建模板";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.新建模板_FormClosing);
             this.Load += new System.EventHandler(this.新建模板_Load);
+            this.palNow.ResumeLayout(false);
+            this.palNow.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -170,8 +208,11 @@
         private System.Windows.Forms.Label lab当前相机;
         private System.Windows.Forms.Label lab当前定位;
         private System.Windows.Forms.Label lab当前检测项;
-        private System.Windows.Forms.ComboBox cmb相机列表;
-        private System.Windows.Forms.ComboBox cmb定位;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmb当前相机;
+        private System.Windows.Forms.ComboBox cmb当前定位;
+        private System.Windows.Forms.ComboBox cmb当前检测项;
+        private System.Windows.Forms.ComboBox cmb当前图像预处理;
+        private System.Windows.Forms.Label lab当前图像预处理;
+        private System.Windows.Forms.Panel palNow;
     }
 }

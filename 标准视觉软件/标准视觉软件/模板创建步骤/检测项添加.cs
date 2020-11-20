@@ -28,8 +28,15 @@ namespace 标准视觉软件
 
         public void Save(Model model)
         {
+
+            if(model.testItems.RemoveAll(x => x == model.nowTestItem) > 0)
+            {
+                model.nowStep--;
+            }
+
+            model.nowTestItem = null;
             TestItem testItem = new TestItem();
-            testItem.name = 检测项设置.GetName();
+            testItem.name = 检测项设置.GetName() + model.testItems.Count;
             testItem.CamName = model.nowCam;
             testItem.Match = model.nowMatching;
             testItem.type = 检测项设置.GetName();

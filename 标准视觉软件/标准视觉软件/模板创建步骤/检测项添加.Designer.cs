@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btn测试 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -46,24 +44,6 @@
             this.lab本地图片数量 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(679, 582);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(141, 40);
-            this.button12.TabIndex = 41;
-            this.button12.Text = "下一张";
-            this.button12.UseVisualStyleBackColor = true;
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(527, 582);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(141, 40);
-            this.button13.TabIndex = 40;
-            this.button13.Text = "上一张";
-            this.button13.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -205,8 +185,6 @@
             this.Controls.Add(this.txt检测结果);
             this.Controls.Add(this.txt检测项说明);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button13);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn测试);
             this.Controls.Add(this.pictureBox1);
@@ -223,9 +201,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn测试;
         private System.Windows.Forms.PictureBox pictureBox1;

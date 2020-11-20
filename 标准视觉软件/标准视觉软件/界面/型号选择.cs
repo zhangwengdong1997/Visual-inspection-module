@@ -51,7 +51,7 @@ namespace 标准视觉软件
                     Point pt = modelList.Last().Location;
                     int BeforHeight= modelList.Last().Height;
                     listitem.Location = new Point(pt.X, pt.Y + BeforHeight + 3);
-                    if(model.camNum == 1)
+                    if(model.camNum == 1 && model.cams.Count == 1)
                     {
                         listitem.AddTap(model.cams[0].CamName);
                     }

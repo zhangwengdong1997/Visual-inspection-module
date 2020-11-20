@@ -14,7 +14,7 @@ namespace 标准视觉软件
     {
         int allCamNum;
         int camNum = 1;
-        int testItemNum = 1;
+        int testItemNum = 0;
 
         public 选择模板类型()
         {

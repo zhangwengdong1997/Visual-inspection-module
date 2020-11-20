@@ -45,6 +45,10 @@ namespace 标准视觉软件
         /// </summary>
         public List<TestItem> testItems { get; set; }
         /// <summary>
+        /// 当前检测项
+        /// </summary>
+        public TestItem nowTestItem { get; set; }
+        /// <summary>
         /// 检测步骤
         /// </summary>
         public List<StepName> steps { get; set; }

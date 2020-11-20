@@ -149,6 +149,12 @@
     <Compile Include="界面\模板管理界面.Designer.cs">
       <DependentUpon>模板管理界面.cs</DependentUpon>
     </Compile>
+    <Compile Include="界面\输入字符.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="界面\输入字符.Designer.cs">
+      <DependentUpon>输入字符.cs</DependentUpon>
+    </Compile>
     <Compile Include="相机\HKCameraCltr.cs" />
     <Compile Include="预处理\预处理功能.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -178,6 +184,9 @@
     <EmbeddedResource Include="模板创建步骤\图像预处理.resx">
       <DependentUpon>图像预处理.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="模板创建步骤\检测项添加.resx">
+      <DependentUpon>检测项添加.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="模板创建步骤\相机配置.resx">
       <DependentUpon>相机配置.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +205,10 @@
     <EmbeddedResource Include="界面\模板管理界面.resx">
       <DependentUpon>模板管理界面.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="界面\输入字符.resx">
+      <DependentUpon>输入字符.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App1.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

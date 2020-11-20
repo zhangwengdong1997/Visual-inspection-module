@@ -46,11 +46,11 @@ namespace 标准视觉软件
             HOperatorSet.CountObj(ho_selectedRegion, out HTuple hv_number);
             if(hv_number.I == num)
             {
-                outMessage = "OK/n筛选区域个数为" + hv_number.I.ToString();
+                outMessage = "OK\n筛选区域个数为" + hv_number.I.ToString();
             }
             else
             {
-                outMessage = "NG/n筛选区域个数为" + hv_number.I.ToString();
+                outMessage = "NG\n筛选区域个数为" + hv_number.I.ToString();
             }
             
         }

@@ -24,6 +24,7 @@ namespace 标准视觉软件
         HWindow m_hvWindowHandle;
         Model model;
         定位功能 matchingWay;
+        bool havWrite = false;
         public 匹配定位(Model model)
         {
             InitializeComponent();
@@ -34,9 +35,26 @@ namespace 标准视觉软件
         {
             if (matchingWay != null)
             {
+                if (!havWrite)
+                {
+                    DialogResult dialogResult = MessageBox.Show("定位模板保存", "是否保存当前的定位模板", MessageBoxButtons.YesNo);
+                    if(dialogResult == DialogResult.Yes)
+                    {
+                        matchingName = matchingWay.type + model.matchings.Count;
+                        matchingWay.Write(Application.StartupPath + "\\model\\" + model.modelName, matchingName);
+                    }
+                    else
+                    {
+                        model.nowMatching = null;
+                        model.nowStep++;
+                        return;
+                    }
+                }
+                matchingName = matchingWay.type + model.matchings.Count;
                 Matching matching = new Matching(matchingName, matchingWay.type);
                 model.matchings.Add(matching);
                 model.nowMatching = matching;
+                matchingWay = null;
             }
             else
             {
@@ -342,15 +360,17 @@ namespace 标准视觉软件
             matchingWay = MyRun.GetMatchingFun(cmb定位模板类型.Text);
             matchingWay.Create(m_hoImage, m_hoRegion);
             ShowMatchModel();
+            havWrite = false;
         }
 
         private void btn保存模板_Click(object sender, EventArgs e)
         {
             if (matchingWay == null)
                 return;
-            
-            matchingName = "abc";
+            havWrite = true;
+            matchingName = matchingWay.type + model.matchings.Count;
             matchingWay.Write(Application.StartupPath + "\\model\\" + model.modelName, matchingName);
+
         }
 
     }
