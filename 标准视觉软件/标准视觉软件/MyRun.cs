@@ -14,7 +14,7 @@ namespace 标准视觉软件
     class MyRun
     {
         static HkCameraCltr cameraCltr;
-        static Dictionary<string, 检测参数设置> ParameterSettingControls;
+        static Dictionary<string, I检测参数设置> ParameterSettingControls;
         static Dictionary<string, 预处理功能> ImagePreprocessFun;
         static Dictionary<string, 定位功能> MatchingFun;
 
@@ -31,7 +31,7 @@ namespace 标准视觉软件
             //连接相机
             cameraCltr = new HkCameraCltr();
             //加载检测项参数设置控件
-            ParameterSettingControls = new Dictionary<string, 检测参数设置>();
+            ParameterSettingControls = new Dictionary<string, I检测参数设置>();
             字符识别参数设置 字符识别 = new 字符识别参数设置();
             ParameterSettingControls.Add("字符识别", 字符识别);
             区域筛选计数参数设置 区域筛选计数 = new 区域筛选计数参数设置();
@@ -67,7 +67,7 @@ namespace 标准视觉软件
             return ParameterSettingControls.Keys.ToList<string>();
         }
 
-        public static 检测参数设置 GetParameterSettingControl(string TestItemType)
+        public static I检测参数设置 GetParameterSettingControl(string TestItemType)
         {
             return ParameterSettingControls[TestItemType];
         }

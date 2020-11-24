@@ -23,20 +23,22 @@ namespace 标准视觉软件
         public 新建模板()
         {
             InitializeComponent();
-            
         }
 
         private void 新建模板_Load(object sender, EventArgs e)
         {
+            //新建模板窗口新建一个Model对象
             model = new Model();
+
             chooseModelTypeWindow = new 选择模板类型();
             camSetWindow = new 相机配置(model);
             imagePretreatWindow = new 图像预处理();
             matchingWindow = new 匹配定位(model);
             testItemsAddWindow = new 检测项添加(model);
+            //进入模板类型选择界面
             panelMain.Controls.Add(chooseModelTypeWindow);
             btn上一步.Visible = false;
-            model.steps.Add(StepName.选择模板类型);
+            
             cmb当前相机.DataSource = HkCameraCltr.GetListUserDefinedName();
             cmb当前相机.Text = "";
         }
@@ -45,7 +47,7 @@ namespace 标准视觉软件
 
         private void btn下一步_Click(object sender, EventArgs e)
         {
-            (panelMain.Controls[0] as 模板创建步骤).Save(model);
+            (panelMain.Controls[0] as I模板创建步骤).Save(model);
             if (model.nowStep == model.steps.Count)
             {
                 MyRun.WriteModelJS(model);

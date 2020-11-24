@@ -176,6 +176,10 @@ namespace 标准视觉软件
         /// </summary>
         public string type { get; set; }
         /// <summary>
+        /// 检测项是否屏蔽
+        /// </summary>
+        public bool enable { get; set; }
+        /// <summary>
         /// 参数列表
         /// </summary>
         public List<Parameter> parameters { get; set; }

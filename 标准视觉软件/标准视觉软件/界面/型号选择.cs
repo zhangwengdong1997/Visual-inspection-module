@@ -25,6 +25,7 @@ namespace 标准视觉软件
         {
             新建模板 createModeFrom = new 新建模板();
             createModeFrom.ShowDialog();
+            readModel();
         }
 
         private void 型号选择_Load(object sender, EventArgs e)
@@ -33,6 +34,13 @@ namespace 标准视觉软件
             //初始化界面
             //列表中显示之前创建的所有型号
             //读取存储的json文件
+            readModel();
+        }
+
+        public void readModel()
+        {
+            modelList.Clear();
+            pnlModelList.Controls.Clear();
             List<String> modelNamelist = FileOperation.GetAllDirectoryName(Application.StartupPath + "\\model");
             foreach (var modelName in modelNamelist)
             {
@@ -49,29 +57,26 @@ namespace 标准视觉软件
                 else
                 {
                     Point pt = modelList.Last().Location;
-                    int BeforHeight= modelList.Last().Height;
+                    int BeforHeight = modelList.Last().Height;
                     listitem.Location = new Point(pt.X, pt.Y + BeforHeight + 3);
-                    if(model.camNum == 1 && model.cams.Count == 1)
+                }
+                    if (model.camNum == 1 && model.cams.Count == 1)
                     {
                         listitem.AddTap(model.cams[0].CamName);
                     }
                     else
                     {
-                        string camNames = "";
-                        foreach (var item in model.cams)
-                        {
-                            camNames += item + " ";
-                        }
-                        listitem.AddTap(camNames);
+                    string camNames = "";
+                    foreach (var item in model.cams)
+                    {
+                        camNames += item + " ";
                     }
-                    listitem.AddTap("检测项数量 " + model.testItems.Count);
-
+                    listitem.AddTap(camNames);
                 }
+                listitem.AddTap("检测项数量 " + model.testItems.Count);
                 modelList.Add(listitem);
                 pnlModelList.Controls.Add(listitem);
             }
-
-
         }
     }
 }

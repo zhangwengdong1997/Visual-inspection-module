@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HalconDotNet;
+using System.Collections;
+using System.Configuration;
 
 namespace 标准视觉软件
 {
-    public partial class 检测项添加 : UserControl, 模板创建步骤
+    public partial class 检测项添加 : UserControl, I模板创建步骤
     {
-        检测参数设置 检测项设置;
+        I检测参数设置 检测项设置;
         string[] ImagesPath;
         int count = 0;
         HObject m_hoImage;
@@ -54,6 +56,10 @@ namespace 标准视觉软件
             cmb选择检测项.DataSource = MyRun.GetTestItemList();
             DisplayWindowsInitial();
             MyRun.SoftwareOnceEvent += MyRun_SoftwareOnceEvent;
+            Hashtable testItemSettings = (Hashtable)ConfigurationManager.GetSection("testItemSettings");
+            MyRun.GetTestItemList().FindIndex(x => x.Equals(testItemSettings["type"]));
+            cmb选择检测项.SelectedIndex = MyRun.GetTestItemList().FindIndex(x => x.Equals(testItemSettings["type"]));
+
         }
 
         private void MyRun_SoftwareOnceEvent(object sender, TriggerIamge e)

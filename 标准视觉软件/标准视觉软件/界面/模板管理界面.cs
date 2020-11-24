@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace 标准视觉软件
 {
@@ -21,6 +22,11 @@ namespace 标准视觉软件
         {
             型号选择 ModelNameSelectWindow = new 型号选择(panelMain);
             panelMain.Controls.Add(ModelNameSelectWindow);
+        }
+
+        private void panelMain_Paint(object sender, PaintEventArgs e)
+        {
+            string a = ConfigurationManager.AppSettings["userName"];
         }
     }
 }

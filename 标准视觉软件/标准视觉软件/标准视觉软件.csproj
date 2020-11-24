@@ -38,6 +38,15 @@
     <Reference Include="halcondotnet, Version=17.12.0.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
       <HintPath>..\packages\HalconDotNet.17.12.0\lib\net35\halcondotnet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
     <Reference Include="MvCameraControl.Net">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MVS\Development\DotNet\AnyCpu\MvCameraControl.Net.dll</HintPath>
     </Reference>
@@ -45,6 +54,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -143,6 +153,12 @@
     <Compile Include="界面\新建模板.designer.cs">
       <DependentUpon>新建模板.cs</DependentUpon>
     </Compile>
+    <Compile Include="界面\检测项管理界面.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="界面\检测项管理界面.Designer.cs">
+      <DependentUpon>检测项管理界面.cs</DependentUpon>
+    </Compile>
     <Compile Include="界面\模板管理界面.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -202,13 +218,15 @@
     <EmbeddedResource Include="界面\新建模板.resx">
       <DependentUpon>新建模板.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="界面\检测项管理界面.resx">
+      <DependentUpon>检测项管理界面.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="界面\模板管理界面.resx">
       <DependentUpon>模板管理界面.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="界面\输入字符.resx">
       <DependentUpon>输入字符.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App1.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

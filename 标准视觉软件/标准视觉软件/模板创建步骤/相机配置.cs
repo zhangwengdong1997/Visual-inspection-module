@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HalconDotNet;
 using System.IO;
+using System.Configuration;
+using System.Collections;
 
 namespace 标准视觉软件
 {
-    public partial class 相机配置 : UserControl, 模板创建步骤
+    public partial class 相机配置 : UserControl, I模板创建步骤
     {
         string camName;
         float exposureTime = -1;
@@ -21,6 +23,7 @@ namespace 标准视觉软件
         int count = 0;
 
         HWindow m_Window;
+        HObject m_Image;
         Model model;
         public 相机配置(Model model)
         {
@@ -31,10 +34,18 @@ namespace 标准视觉软件
         private void 相机配置_Load(object sender, EventArgs e)
         {
             cmb相机列表.DataSource = HkCameraCltr.GetListUserDefinedName();
+            if(HkCameraCltr.GetListUserDefinedName().Count == 1)
+            {
+                cmb相机列表.SelectedIndex = 0;
+            }
+            Hashtable camSettings = (Hashtable)ConfigurationManager.GetSection("camSettings");
+            txt相机曝光值.Text = (string)camSettings["ExposureTime"];
             m_Window = new HWindow();
             DisplayWindowsInitial();
             MyRun.SoftwareOnceEvent += MyRun_SoftwareOnceEvent;
+            
             //导入模板默认配置（未完成）
+            
         }
 
         private void DisplayWindowsInitial()
@@ -65,6 +76,7 @@ namespace 标准视觉软件
             // ch: 显示 || display
             try
             {
+                m_Image = new HObject(Hobj);
                 HTuple Width = null, Height = null;
                 HOperatorSet.GetImagePointer1(Hobj, out _, out _, out Width, out Height);
                 HOperatorSet.SetPart(hWindow, 0, 0, Height, Width);
@@ -118,7 +130,8 @@ namespace 标准视觉软件
                 else
                 {
                     lab相机曝光值提示.Text = "";
-                    MyRun.SetCameraExposureTime(camName, exposureTime);
+                    if(camName != null)
+                        MyRun.SetCameraExposureTime(camName, exposureTime);
                 }
             }
             else
@@ -177,6 +190,13 @@ namespace 标准视觉软件
         private void rdo本地模式_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn添加当前图片关联相机_Click(object sender, EventArgs e)
+        {
+            HOperatorSet.WriteImage(m_Image, "jpg", 0, localImagePath + "\\" + DateTime.Now.ToString("HH-mm-ss") + ".jpg");
+            ImagesPath = FileOperation.GetFiles(localImagePath);
+            lab关联图片数量.Text = ImagesPath.Length.ToString();
         }
     }
 }

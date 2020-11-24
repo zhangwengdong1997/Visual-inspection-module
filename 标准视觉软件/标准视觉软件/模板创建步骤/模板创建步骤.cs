@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace 标准视觉软件
 {
-    interface 模板创建步骤
+    interface I模板创建步骤
     {
         void Save(Model model);
 

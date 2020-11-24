@@ -11,7 +11,7 @@ using HalconDotNet;
 
 namespace 标准视觉软件
 {
-    public partial class 区域筛选计数参数设置 : UserControl, 检测参数设置
+    public partial class 区域筛选计数参数设置 : UserControl, I检测参数设置
     {
         HWindow hWindow;
         HObject hImage;

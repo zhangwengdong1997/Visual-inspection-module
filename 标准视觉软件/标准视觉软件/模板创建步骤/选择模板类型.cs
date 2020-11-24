@@ -7,10 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Collections;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 
 namespace 标准视觉软件
 {
-    public partial class 选择模板类型 : UserControl, 模板创建步骤
+    public partial class 选择模板类型 : UserControl, I模板创建步骤
     {
         int allCamNum;
         int camNum = 1;
@@ -26,7 +29,7 @@ namespace 标准视觉软件
             allCamNum = HkCameraCltr.EnumDevices();
             //导入模板默认配置（未完成）
         }
-
+        //根据模板创建的步骤，依次显示各步骤对应的界面
         public void Save(Model model)
         {
             model.modelName = txt模板名称.Text;
@@ -34,6 +37,8 @@ namespace 标准视觉软件
             model.nowStep++;
             model.steps.Clear();
             model.steps.Add(StepName.选择模板类型);
+            //创建以模板名称命名的文件夹
+            FileOperation.CreateDirectory("model", model.modelName);
             for (int i = 0; i < model.camNum; i++)
             {
                 if (chb相机配置.Checked)
@@ -89,17 +94,32 @@ namespace 标准视觉软件
 
         private void txt模板名称_TextChanged(object sender, EventArgs e)
         {
+            //输入新建模板名称
             string modelName = txt模板名称.Text;
-            //查找已有模板名称，模板名称是否重复（未完成）
+            //检测模板名称是否重复
+            Model model = MyRun.ReadModelJS(modelName);
+            if (model != null)
+            {
+                lab模板名称提示.Text = "模板名称已存在";
+            }
+            else
+            {
+                lab模板名称提示.Text = "";
+            }
+
         }
 
+        //选择要创建的模板的类型，决定模板创建所需的步骤
+        //模板的类型可以由配置文件进行配置添加
         private void button1_Click(object sender, EventArgs e)
         {
-            txt相机数量.Text = "1";
-            chb相机配置.Checked = true;
-            chb图像预处理.Checked = false;
-            chb匹配定位.Checked = false;
-            txt检测项数量.Text = "1";
+            Hashtable stepSettings = (Hashtable)ConfigurationManager.GetSection("stepSettings");
+
+            txt相机数量.Text = (string)stepSettings["cam"];
+            chb相机配置.Checked = !stepSettings["cam"].Equals("0");
+            chb图像预处理.Checked = !stepSettings["imagePreprocess"].Equals("0");
+            chb匹配定位.Checked = !stepSettings["matching"].Equals("0");
+            txt检测项数量.Text = (string)stepSettings["testItem"];
         }
 
         private void txt检测项数量_TextChanged(object sender, EventArgs e)

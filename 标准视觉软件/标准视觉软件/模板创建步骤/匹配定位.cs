@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HalconDotNet;
-
+using System.Collections;
+using System.Configuration;
 
 namespace 标准视觉软件
 {
-    public partial class 匹配定位 : UserControl, 模板创建步骤
+    public partial class 匹配定位 : UserControl, I模板创建步骤
     {
         string matchingName;
         string[] ImagesPath;
@@ -72,6 +73,8 @@ namespace 标准视觉软件
             MyRun.SoftwareOnceEvent += MyRun_SoftwareOnceEvent;
             SetRegionFillMode(RegionFillMode.Margin);
             m_historyRegions = new List<HObject>();
+            Hashtable matchingSettings = (Hashtable)ConfigurationManager.GetSection("matchingSettings");
+            cmb定位模板类型.Text = (string)matchingSettings["type"];
         }
 
         private void MyRun_SoftwareOnceEvent(object sender, TriggerIamge e)

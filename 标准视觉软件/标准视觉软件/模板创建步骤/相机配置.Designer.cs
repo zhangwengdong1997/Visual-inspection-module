@@ -41,13 +41,15 @@
             this.lab相机曝光值提示 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txt关联图片路径 = new System.Windows.Forms.TextBox();
+            this.lab选择相机提示 = new System.Windows.Forms.Label();
+            this.btn添加当前图片关联相机 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // rdo本地模式
             // 
             this.rdo本地模式.AutoSize = true;
-            this.rdo本地模式.Location = new System.Drawing.Point(662, 291);
+            this.rdo本地模式.Location = new System.Drawing.Point(660, 338);
             this.rdo本地模式.Name = "rdo本地模式";
             this.rdo本地模式.Size = new System.Drawing.Size(71, 16);
             this.rdo本地模式.TabIndex = 27;
@@ -59,7 +61,7 @@
             // rdo相机模式
             // 
             this.rdo相机模式.AutoSize = true;
-            this.rdo相机模式.Location = new System.Drawing.Point(556, 291);
+            this.rdo相机模式.Location = new System.Drawing.Point(554, 338);
             this.rdo相机模式.Name = "rdo相机模式";
             this.rdo相机模式.Size = new System.Drawing.Size(71, 16);
             this.rdo相机模式.TabIndex = 26;
@@ -71,7 +73,7 @@
             // lab关联图片数量
             // 
             this.lab关联图片数量.AutoSize = true;
-            this.lab关联图片数量.Location = new System.Drawing.Point(548, 243);
+            this.lab关联图片数量.Location = new System.Drawing.Point(546, 290);
             this.lab关联图片数量.Name = "lab关联图片数量";
             this.lab关联图片数量.Size = new System.Drawing.Size(77, 12);
             this.lab关联图片数量.TabIndex = 25;
@@ -89,7 +91,7 @@
             // 
             // btn获取图片
             // 
-            this.btn获取图片.Location = new System.Drawing.Point(545, 350);
+            this.btn获取图片.Location = new System.Drawing.Point(543, 397);
             this.btn获取图片.Name = "btn获取图片";
             this.btn获取图片.Size = new System.Drawing.Size(138, 45);
             this.btn获取图片.TabIndex = 22;
@@ -165,10 +167,30 @@
             this.txt关联图片路径.Size = new System.Drawing.Size(182, 21);
             this.txt关联图片路径.TabIndex = 30;
             // 
+            // lab选择相机提示
+            // 
+            this.lab选择相机提示.AutoSize = true;
+            this.lab选择相机提示.Location = new System.Drawing.Point(601, 67);
+            this.lab选择相机提示.Name = "lab选择相机提示";
+            this.lab选择相机提示.Size = new System.Drawing.Size(0, 12);
+            this.lab选择相机提示.TabIndex = 31;
+            // 
+            // btn添加当前图片关联相机
+            // 
+            this.btn添加当前图片关联相机.Location = new System.Drawing.Point(651, 233);
+            this.btn添加当前图片关联相机.Name = "btn添加当前图片关联相机";
+            this.btn添加当前图片关联相机.Size = new System.Drawing.Size(153, 45);
+            this.btn添加当前图片关联相机.TabIndex = 32;
+            this.btn添加当前图片关联相机.Text = "添加当前图片关联相机";
+            this.btn添加当前图片关联相机.UseVisualStyleBackColor = true;
+            this.btn添加当前图片关联相机.Click += new System.EventHandler(this.btn添加当前图片关联相机_Click);
+            // 
             // 相机配置
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn添加当前图片关联相机);
+            this.Controls.Add(this.lab选择相机提示);
             this.Controls.Add(this.txt关联图片路径);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lab相机曝光值提示);
@@ -206,5 +228,7 @@
         private System.Windows.Forms.Label lab相机曝光值提示;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt关联图片路径;
+        private System.Windows.Forms.Label lab选择相机提示;
+        private System.Windows.Forms.Button btn添加当前图片关联相机;
     }
 }

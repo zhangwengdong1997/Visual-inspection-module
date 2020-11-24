@@ -44,6 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt检测项数量 = new System.Windows.Forms.TextBox();
             this.lab检测项数量提示 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,6 +150,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(36, 140);
             this.panel1.Name = "panel1";
@@ -161,7 +163,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(198, 54);
             this.button1.TabIndex = 0;
-            this.button1.Text = "单相机固定位置单检测项";
+            this.button1.Text = "默认";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -189,6 +191,15 @@
             this.lab检测项数量提示.Name = "lab检测项数量提示";
             this.lab检测项数量提示.Size = new System.Drawing.Size(0, 12);
             this.lab检测项数量提示.TabIndex = 26;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(46, 154);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(198, 54);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "单相机固定位置单检测项";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // 选择模板类型
             // 
@@ -235,5 +246,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt检测项数量;
         private System.Windows.Forms.Label lab检测项数量提示;
+        private System.Windows.Forms.Button button2;
     }
 }
