@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MvCameraControl.Net">
+      <HintPath>..\..\标准视觉软件\标准视觉软件\bin\Debug\MvCameraControl.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,7 +47,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model.cs" />
+    <Compile Include="MyRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="模板创建步骤\模板创建步骤.cs" />
+    <Compile Include="模板创建步骤\选择模板类型.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="模板创建步骤\选择模板类型.Designer.cs">
+      <DependentUpon>选择模板类型.cs</DependentUpon>
+    </Compile>
+    <Compile Include="界面\新建模板窗口.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="界面\新建模板窗口.Designer.cs">
+      <DependentUpon>新建模板窗口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="界面\检测模板管理窗口.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="界面\检测模板管理窗口.Designer.cs">
+      <DependentUpon>检测模板管理窗口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="相机\HKCameraCltr.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Halcon\" />
+    <Folder Include="定位功能\" />
+    <Folder Include="检测功能\" />
+    <Folder Include="预处理功能\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="模板创建步骤\选择模板类型.resx">
+      <DependentUpon>选择模板类型.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="界面\新建模板窗口.resx">
+      <DependentUpon>新建模板窗口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="界面\检测模板管理窗口.resx">
+      <DependentUpon>检测模板管理窗口.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

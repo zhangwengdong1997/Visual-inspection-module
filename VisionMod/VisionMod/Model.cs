@@ -4,67 +4,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 标准视觉软件
+namespace VisionMod
 {
     public class Model
     {
         /// <summary>
         /// 型号模板的名称
         /// </summary>
-        public string ModelName { get; set; }
+        public string modelName { get; set; }
         /// <summary>
         /// 调用的相机
         /// </summary>
-        public List<Cam> Cams { get; set; }
+        public List<Cam> cams { get; set; }
         /// <summary>
         /// 相机数量
         /// </summary>
-        public int CamNum { get; set; }
+        public int camNum { get; set; }
         /// <summary>
         /// 当前操作的相机
         /// </summary>
-        public string NowCam { get; set; }
+        public string nowCam { get; set; }
         /// <summary>
         /// 预处理
         /// </summary>
-        public List<ImagePreprocess> ImagePreprocesses { get; set; }
+        public List<ImagePreprocess> imagePreprocesses { get; set; }
         /// <summary>
         /// 当前预处理
         /// </summary>
-        public ImagePreprocess NowImagePreprocess { get; set; }
+        public ImagePreprocess nowImagePreprocess { get; set; }
         /// <summary>
         /// 定位模板
         /// </summary>
-        public List<Matching> Matchings { get; set; }
+        public List<Matching> matchings { get; set; }
         /// <summary>
         /// 当前定位模板
         /// </summary>
-        public Matching NowMatching { get; set; }
+        public Matching nowMatching { get; set; }
         /// <summary>
         /// 检测项
         /// </summary>
-        public List<TestItem> TestItems { get; set; }
+        public List<TestItem> testItems { get; set; }
         /// <summary>
         /// 当前检测项
         /// </summary>
-        public TestItem NowTestItem { get; set; }
+        public TestItem nowTestItem { get; set; }
         /// <summary>
         /// 检测步骤
         /// </summary>
-        public List<StepName> Steps { get; set; }
+        public List<StepName> steps { get; set; }
         /// <summary>
         /// 当前步骤
         /// </summary>
-        public int NowStep { get; set; }
+        public int nowStep { get; set; }
 
         public Model()
         {
-            Cams = new List<Cam>();
-            ImagePreprocesses = new List<ImagePreprocess>();
-            Matchings = new List<Matching>();
-            TestItems = new List<TestItem>();
-            Steps = new List<StepName>();
-            NowStep = 0;
+            cams = new List<Cam>();
+            imagePreprocesses = new List<ImagePreprocess>();
+            matchings = new List<Matching>();
+            testItems = new List<TestItem>();
+            steps = new List<StepName>();
+            nowStep = 0;
         }
     }
     public enum StepName

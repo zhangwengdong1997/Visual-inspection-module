@@ -13,12 +13,10 @@ namespace 标准视觉软件
 {
     public partial class 型号选择 : UserControl
     {
-        Panel panelMain;
         List<型号列表项> modelList = new List<型号列表项>();
         public 型号选择(Panel panelMain)
         {
             InitializeComponent();
-            this.panelMain = panelMain;
         }
 
         private void bnt新建模板_Click(object sender, EventArgs e)
