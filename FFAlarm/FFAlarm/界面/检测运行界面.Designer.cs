@@ -29,32 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.hWindowControl1 = new HalconDotNet.HWindowControl();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbModeName = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMessage = new System.Windows.Forms.TextBox();
             this.btn开始 = new CCWin.SkinControl.SkinButton();
             this.btn测试 = new CCWin.SkinControl.SkinButton();
+            this.图像显示控件1 = new LS_VisionMod.界面.图像显示控件();
             this.SuspendLayout();
             // 
-            // hWindowControl1
+            // cmbModeName
             // 
-            this.hWindowControl1.BackColor = System.Drawing.Color.Black;
-            this.hWindowControl1.BorderColor = System.Drawing.Color.Black;
-            this.hWindowControl1.ImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
-            this.hWindowControl1.Location = new System.Drawing.Point(3, 12);
-            this.hWindowControl1.Name = "hWindowControl1";
-            this.hWindowControl1.Size = new System.Drawing.Size(706, 704);
-            this.hWindowControl1.TabIndex = 24;
-            this.hWindowControl1.WindowSize = new System.Drawing.Size(706, 704);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(718, 36);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(171, 20);
-            this.comboBox1.TabIndex = 25;
+            this.cmbModeName.FormattingEnabled = true;
+            this.cmbModeName.Location = new System.Drawing.Point(718, 36);
+            this.cmbModeName.Name = "cmbModeName";
+            this.cmbModeName.Size = new System.Drawing.Size(171, 20);
+            this.cmbModeName.TabIndex = 25;
+            this.cmbModeName.SelectedIndexChanged += new System.EventHandler(this.cmbModeName_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -65,13 +55,13 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "检测模板选择";
             // 
-            // textBox1
+            // txtMessage
             // 
-            this.textBox1.Location = new System.Drawing.Point(718, 62);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(171, 404);
-            this.textBox1.TabIndex = 27;
+            this.txtMessage.Location = new System.Drawing.Point(718, 62);
+            this.txtMessage.Multiline = true;
+            this.txtMessage.Name = "txtMessage";
+            this.txtMessage.Size = new System.Drawing.Size(171, 404);
+            this.txtMessage.TabIndex = 27;
             // 
             // btn开始
             // 
@@ -105,30 +95,38 @@
             this.btn测试.UseVisualStyleBackColor = false;
             this.btn测试.Click += new System.EventHandler(this.btn测试_Click);
             // 
+            // 图像显示控件1
+            // 
+            this.图像显示控件1.ConnectCam = null;
+            this.图像显示控件1.Location = new System.Drawing.Point(21, 36);
+            this.图像显示控件1.Name = "图像显示控件1";
+            this.图像显示控件1.Size = new System.Drawing.Size(688, 610);
+            this.图像显示控件1.TabIndex = 31;
+            // 
             // 检测运行界面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.图像显示控件1);
             this.Controls.Add(this.btn测试);
             this.Controls.Add(this.btn开始);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.hWindowControl1);
+            this.Controls.Add(this.cmbModeName);
             this.Name = "检测运行界面";
             this.Size = new System.Drawing.Size(892, 730);
+            this.Load += new System.EventHandler(this.检测运行界面_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private HalconDotNet.HWindowControl hWindowControl1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbModeName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMessage;
         private CCWin.SkinControl.SkinButton btn开始;
         private CCWin.SkinControl.SkinButton btn测试;
+        private LS_VisionMod.界面.图像显示控件 图像显示控件1;
     }
 }

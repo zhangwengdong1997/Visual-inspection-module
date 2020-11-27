@@ -14,7 +14,29 @@ namespace FFAlarm
         SerialPort serialPort = null;
 
         Thread workThread = null;
-
+        public Dictionary<string, byte> InNum = new Dictionary<string, byte>();
+        public Dictionary<string, byte> OutNum = new Dictionary<string, byte>();
+        
+        private void DictionaryInit()
+        {
+            InNum.Add("X0", 0x01);
+            InNum.Add("X1", 0x02);
+            InNum.Add("X2", 0x04);
+            InNum.Add("X3", 0x08);
+            InNum.Add("X4", 0x10);
+            InNum.Add("X5", 0x20);
+            InNum.Add("X6", 0x40);
+            InNum.Add("X7", 0x80);
+            OutNum.Add("Y0", 0x01);
+            OutNum.Add("Y1", 0x02);
+            OutNum.Add("Y2", 0x04);
+            OutNum.Add("Y3", 0x08);
+            OutNum.Add("Y4", 0x10);
+            OutNum.Add("Y5", 0x20);
+            OutNum.Add("Y6", 0x40);
+            OutNum.Add("Y7", 0x80);
+        }
+        
         public string strErrorMsg
         {
             get; private set;
@@ -62,6 +84,7 @@ namespace FFAlarm
                 strErrorMsg = "";
                 return false;
             }
+            DictionaryInit();
             try
             {
                 serialPort = new SerialPort(strCom, baudRate, parity, dataBits);

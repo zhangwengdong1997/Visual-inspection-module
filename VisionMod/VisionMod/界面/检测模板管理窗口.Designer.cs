@@ -1,4 +1,4 @@
-﻿namespace VisionMod.界面
+﻿namespace LS_VisionMod.界面
 {
     partial class 检测模板管理窗口
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pnlModelList = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn搜索 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.bnt复制模板 = new System.Windows.Forms.Button();
             this.bnt删除模板 = new System.Windows.Forms.Button();
@@ -44,14 +44,15 @@
             this.pnlModelList.Size = new System.Drawing.Size(422, 497);
             this.pnlModelList.TabIndex = 10;
             // 
-            // button5
+            // btn搜索
             // 
-            this.button5.Location = new System.Drawing.Point(402, 77);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(70, 34);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "搜索";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn搜索.Location = new System.Drawing.Point(402, 77);
+            this.btn搜索.Name = "btn搜索";
+            this.btn搜索.Size = new System.Drawing.Size(70, 34);
+            this.btn搜索.TabIndex = 9;
+            this.btn搜索.Text = "搜索";
+            this.btn搜索.UseVisualStyleBackColor = true;
+            this.btn搜索.Click += new System.EventHandler(this.btn搜索_Click);
             // 
             // textBox1
             // 
@@ -106,10 +107,11 @@
             this.Controls.Add(this.bnt编辑模板);
             this.Controls.Add(this.bnt新建模板);
             this.Controls.Add(this.pnlModelList);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btn搜索);
             this.Controls.Add(this.textBox1);
             this.Name = "检测模板管理窗口";
             this.Size = new System.Drawing.Size(1024, 768);
+            this.Load += new System.EventHandler(this.检测模板管理窗口_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,7 +120,7 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlModelList;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn搜索;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button bnt复制模板;
         private System.Windows.Forms.Button bnt删除模板;

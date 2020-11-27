@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LS_VisionMod;
 
 namespace FFAlarm.界面
 {
@@ -15,6 +16,11 @@ namespace FFAlarm.界面
         public 模板创建界面()
         {
             InitializeComponent();
+        }
+
+        private void 模板创建界面_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

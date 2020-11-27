@@ -70,5 +70,29 @@ namespace FFAlarm.Properties {
                 this["CheckIN"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Y0")]
+        public string OKOut {
+            get {
+                return ((string)(this["OKOut"]));
+            }
+            set {
+                this["OKOut"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Y1")]
+        public string NGOut {
+            get {
+                return ((string)(this["NGOut"]));
+            }
+            set {
+                this["NGOut"] = value;
+            }
+        }
     }
 }

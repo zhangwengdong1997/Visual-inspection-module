@@ -376,5 +376,9 @@ namespace 标准视觉软件
 
         }
 
+        private void cmb定位模板类型_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -40,6 +40,10 @@
             this.skinLabel5 = new CCWin.SkinControl.SkinLabel();
             this.skinLabel1 = new CCWin.SkinControl.SkinLabel();
             this.cmb检测触发信号口 = new System.Windows.Forms.ComboBox();
+            this.cmbOK输出信号口 = new System.Windows.Forms.ComboBox();
+            this.skinLabel2 = new CCWin.SkinControl.SkinLabel();
+            this.skinLabel3 = new CCWin.SkinControl.SkinLabel();
+            this.cmbNG输出信号口 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labPLC连接串口
@@ -83,7 +87,7 @@
             this.skinLabel7.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel7.BorderColor = System.Drawing.Color.White;
             this.skinLabel7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel7.Location = new System.Drawing.Point(325, 329);
+            this.skinLabel7.Location = new System.Drawing.Point(325, 419);
             this.skinLabel7.Name = "skinLabel7";
             this.skinLabel7.Size = new System.Drawing.Size(20, 17);
             this.skinLabel7.TabIndex = 23;
@@ -99,7 +103,7 @@
             this.txtNGSave.IsPasswordChat = '\0';
             this.txtNGSave.IsSystemPasswordChar = false;
             this.txtNGSave.Lines = new string[0];
-            this.txtNGSave.Location = new System.Drawing.Point(268, 322);
+            this.txtNGSave.Location = new System.Drawing.Point(268, 412);
             this.txtNGSave.Margin = new System.Windows.Forms.Padding(0);
             this.txtNGSave.MaxLength = 32767;
             this.txtNGSave.MinimumSize = new System.Drawing.Size(28, 28);
@@ -137,7 +141,7 @@
             this.skinLabel8.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel8.BorderColor = System.Drawing.Color.White;
             this.skinLabel8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel8.Location = new System.Drawing.Point(158, 329);
+            this.skinLabel8.Location = new System.Drawing.Point(158, 419);
             this.skinLabel8.Name = "skinLabel8";
             this.skinLabel8.Size = new System.Drawing.Size(99, 17);
             this.skinLabel8.TabIndex = 22;
@@ -149,7 +153,7 @@
             this.skinLabel6.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel6.BorderColor = System.Drawing.Color.White;
             this.skinLabel6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel6.Location = new System.Drawing.Point(325, 287);
+            this.skinLabel6.Location = new System.Drawing.Point(325, 377);
             this.skinLabel6.Name = "skinLabel6";
             this.skinLabel6.Size = new System.Drawing.Size(20, 17);
             this.skinLabel6.TabIndex = 20;
@@ -165,7 +169,7 @@
             this.txtOKSave.IsPasswordChat = '\0';
             this.txtOKSave.IsSystemPasswordChar = false;
             this.txtOKSave.Lines = new string[0];
-            this.txtOKSave.Location = new System.Drawing.Point(268, 280);
+            this.txtOKSave.Location = new System.Drawing.Point(268, 370);
             this.txtOKSave.Margin = new System.Windows.Forms.Padding(0);
             this.txtOKSave.MaxLength = 32767;
             this.txtOKSave.MinimumSize = new System.Drawing.Size(28, 28);
@@ -203,7 +207,7 @@
             this.skinLabel5.BackColor = System.Drawing.Color.Transparent;
             this.skinLabel5.BorderColor = System.Drawing.Color.White;
             this.skinLabel5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.skinLabel5.Location = new System.Drawing.Point(158, 287);
+            this.skinLabel5.Location = new System.Drawing.Point(158, 377);
             this.skinLabel5.Name = "skinLabel5";
             this.skinLabel5.Size = new System.Drawing.Size(98, 17);
             this.skinLabel5.TabIndex = 19;
@@ -238,10 +242,72 @@
             this.cmb检测触发信号口.Size = new System.Drawing.Size(121, 20);
             this.cmb检测触发信号口.TabIndex = 25;
             // 
+            // cmbOK输出信号口
+            // 
+            this.cmbOK输出信号口.FormattingEnabled = true;
+            this.cmbOK输出信号口.Items.AddRange(new object[] {
+            "Y0",
+            "Y1",
+            "Y2",
+            "Y3",
+            "Y4",
+            "Y5",
+            "Y6",
+            "Y7"});
+            this.cmbOK输出信号口.Location = new System.Drawing.Point(258, 201);
+            this.cmbOK输出信号口.Name = "cmbOK输出信号口";
+            this.cmbOK输出信号口.Size = new System.Drawing.Size(121, 20);
+            this.cmbOK输出信号口.TabIndex = 27;
+            // 
+            // skinLabel2
+            // 
+            this.skinLabel2.AutoSize = true;
+            this.skinLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel2.BorderColor = System.Drawing.Color.White;
+            this.skinLabel2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel2.Location = new System.Drawing.Point(158, 201);
+            this.skinLabel2.Name = "skinLabel2";
+            this.skinLabel2.Size = new System.Drawing.Size(86, 17);
+            this.skinLabel2.TabIndex = 26;
+            this.skinLabel2.Text = "OK输出信号口";
+            // 
+            // skinLabel3
+            // 
+            this.skinLabel3.AutoSize = true;
+            this.skinLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.skinLabel3.BorderColor = System.Drawing.Color.White;
+            this.skinLabel3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.skinLabel3.Location = new System.Drawing.Point(158, 249);
+            this.skinLabel3.Name = "skinLabel3";
+            this.skinLabel3.Size = new System.Drawing.Size(87, 17);
+            this.skinLabel3.TabIndex = 28;
+            this.skinLabel3.Text = "NG输出信号口";
+            // 
+            // cmbNG输出信号口
+            // 
+            this.cmbNG输出信号口.FormattingEnabled = true;
+            this.cmbNG输出信号口.Items.AddRange(new object[] {
+            "Y0",
+            "Y1",
+            "Y2",
+            "Y3",
+            "Y4",
+            "Y5",
+            "Y6",
+            "Y7"});
+            this.cmbNG输出信号口.Location = new System.Drawing.Point(258, 246);
+            this.cmbNG输出信号口.Name = "cmbNG输出信号口";
+            this.cmbNG输出信号口.Size = new System.Drawing.Size(121, 20);
+            this.cmbNG输出信号口.TabIndex = 29;
+            // 
             // 设置界面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cmbNG输出信号口);
+            this.Controls.Add(this.skinLabel3);
+            this.Controls.Add(this.cmbOK输出信号口);
+            this.Controls.Add(this.skinLabel2);
             this.Controls.Add(this.cmb检测触发信号口);
             this.Controls.Add(this.skinLabel1);
             this.Controls.Add(this.skinLabel7);
@@ -274,5 +340,9 @@
         private CCWin.SkinControl.SkinLabel skinLabel5;
         private CCWin.SkinControl.SkinLabel skinLabel1;
         private System.Windows.Forms.ComboBox cmb检测触发信号口;
+        private System.Windows.Forms.ComboBox cmbOK输出信号口;
+        private CCWin.SkinControl.SkinLabel skinLabel2;
+        private CCWin.SkinControl.SkinLabel skinLabel3;
+        private System.Windows.Forms.ComboBox cmbNG输出信号口;
     }
 }

@@ -23,6 +23,9 @@ namespace FFAlarm.界面
             cmbPLC连接串口.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
             cmbPLC连接串口.Text = Settings.Default.COM;
             cmb检测触发信号口.Text = Settings.Default.CheckIN;
+            cmbOK输出信号口.Text = Settings.Default.OKOut;
+            cmbNG输出信号口.Text = Settings.Default.NGOut;
+
             txtOKSave.Text = Settings.Default.OKSaveTime.ToString();
             txtNGSave.Text = Settings.Default.NGSaveTime.ToString();
 
@@ -35,6 +38,8 @@ namespace FFAlarm.界面
             Settings.Default.COM = cmbPLC连接串口.Text;
 
             Settings.Default.CheckIN = cmb检测触发信号口.Text;
+            Settings.Default.OKOut = cmbOK输出信号口.Text;
+            Settings.Default.NGOut = cmbNG输出信号口.Text;
 
             try
             {

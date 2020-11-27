@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LS_VisionMod;
 
 namespace FFAlarm.界面
 {
@@ -28,13 +29,16 @@ namespace FFAlarm.界面
             }
             else if (btn开始.Text == "暂停中")
             {
+                MyRun.PrepareModel(cmbModeName.Text);
                 MyRun.StartRun();
                 btn开始.Text = "检测中";
                 btn开始.BaseColor = Color.FromArgb(80, 134, 254);
             }
             else
             {
+                MyRun.PrepareModel(cmbModeName.Text);
                 MyRun.StartRun();
+                
                 btn开始.Text = "检测中";
                 btn开始.BaseColor = Color.FromArgb(80, 134, 254);
             }
@@ -42,7 +46,25 @@ namespace FFAlarm.界面
 
         private void btn测试_Click(object sender, EventArgs e)
         {
+            MyRun.PrepareModel(cmbModeName.Text);
             MyRun.check();
+        }
+
+        private void 检测运行界面_Load(object sender, EventArgs e)
+        {
+            cmbModeName.DataSource = MyRun.GetModeNameList();
+            图像显示控件1.ConnectCam = "camCM";
+            MyRun.ResultMsg += MyRun_ResultMsg;
+        }
+
+        private void MyRun_ResultMsg(object sender, string e)
+        {
+            this.Invoke(new Action(() => { txtMessage.Text += e; }));
+        }
+
+        private void cmbModeName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

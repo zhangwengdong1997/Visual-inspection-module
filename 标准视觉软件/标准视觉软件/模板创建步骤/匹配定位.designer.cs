@@ -97,6 +97,7 @@
             this.cmb定位模板类型.Name = "cmb定位模板类型";
             this.cmb定位模板类型.Size = new System.Drawing.Size(137, 20);
             this.cmb定位模板类型.TabIndex = 36;
+            this.cmb定位模板类型.SelectedIndexChanged += new System.EventHandler(this.cmb定位模板类型_SelectedIndexChanged);
             // 
             // btn减少区域
             // 

@@ -14,5 +14,11 @@
     <Setting Name="CheckIN" Type="System.String" Scope="User">
       <Value Profile="(Default)">X0</Value>
     </Setting>
+    <Setting Name="OKOut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Y0</Value>
+    </Setting>
+    <Setting Name="NGOut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Y1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -72,6 +72,19 @@ namespace 标准视觉软件
             }
         }
 
+
+        //选择要创建的模板的类型，决定模板创建所需的步骤
+        //模板的类型可以由配置文件进行配置添加
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Hashtable stepSettings = (Hashtable)ConfigurationManager.GetSection("stepSettings");
+
+            txt相机数量.Text = (string)stepSettings["cam"];
+            chb相机配置.Checked = !stepSettings["cam"].Equals("0");
+            chb图像预处理.Checked = !stepSettings["imagePreprocess"].Equals("0");
+            chb匹配定位.Checked = !stepSettings["matching"].Equals("0");
+            txt检测项数量.Text = (string)stepSettings["testItem"];
+        }
         private void txt相机数量_TextChanged(object sender, EventArgs e)
         {
             if (int.TryParse(txt相机数量.Text, out camNum))
@@ -107,19 +120,6 @@ namespace 标准视觉软件
                 lab模板名称提示.Text = "";
             }
 
-        }
-
-        //选择要创建的模板的类型，决定模板创建所需的步骤
-        //模板的类型可以由配置文件进行配置添加
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Hashtable stepSettings = (Hashtable)ConfigurationManager.GetSection("stepSettings");
-
-            txt相机数量.Text = (string)stepSettings["cam"];
-            chb相机配置.Checked = !stepSettings["cam"].Equals("0");
-            chb图像预处理.Checked = !stepSettings["imagePreprocess"].Equals("0");
-            chb匹配定位.Checked = !stepSettings["matching"].Equals("0");
-            txt检测项数量.Text = (string)stepSettings["testItem"];
         }
 
         private void txt检测项数量_TextChanged(object sender, EventArgs e)

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionMod", "VisionMod\VisionMod.csproj", "{9416AA6A-016F-44CA-8427-7364390AF0CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSVisionMod", "VisionMod\LSVisionMod.csproj", "{9416AA6A-016F-44CA-8427-7364390AF0CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teat", "teat\teat.csproj", "{AFAD8BCC-0C16-44F9-88A5-E2A1422A1C51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9416AA6A-016F-44CA-8427-7364390AF0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9416AA6A-016F-44CA-8427-7364390AF0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9416AA6A-016F-44CA-8427-7364390AF0CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFAD8BCC-0C16-44F9-88A5-E2A1422A1C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAD8BCC-0C16-44F9-88A5-E2A1422A1C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAD8BCC-0C16-44F9-88A5-E2A1422A1C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAD8BCC-0C16-44F9-88A5-E2A1422A1C51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

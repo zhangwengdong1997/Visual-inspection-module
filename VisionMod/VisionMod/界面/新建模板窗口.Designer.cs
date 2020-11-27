@@ -1,4 +1,4 @@
-﻿namespace VisionMod.界面
+﻿namespace LS_VisionMod.界面
 {
     partial class 新建模板窗口
     {
@@ -53,6 +53,7 @@
             this.btn上一步.TabIndex = 27;
             this.btn上一步.Text = "上一步";
             this.btn上一步.UseVisualStyleBackColor = true;
+            this.btn上一步.Click += new System.EventHandler(this.btn上一步_Click);
             // 
             // panelMain
             // 
@@ -69,6 +70,7 @@
             this.btn下一步.TabIndex = 25;
             this.btn下一步.Text = "下一步";
             this.btn下一步.UseVisualStyleBackColor = true;
+            this.btn下一步.Click += new System.EventHandler(this.btn下一步_Click);
             // 
             // cmb当前检测项
             // 

@@ -1,5 +1,6 @@
 ﻿using FFAlarm.Properties;
 using LS_CLASS;
+using LS_VisionMod;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ namespace FFAlarm
     class MyRun
     {
         static CMyPlc myPlc;
-
+        static VisinoMod visinoMod;
         static Thread runThread;
         /// <summary>
         /// 发送运行中的一些信息
@@ -28,6 +29,8 @@ namespace FFAlarm
         /// </summary>
         static int nState = -1;
 
+        public static event EventHandler<string> ResultMsg;
+
         /// <summary>
         /// 发送设备连接的信息
         /// </summary>
@@ -35,6 +38,9 @@ namespace FFAlarm
         /// <param name="state"></param>
         public delegate void OnConnectState(int nId, string state);
         public static event OnConnectState ConnectState;
+
+        
+
         public static void Init()
         {
             if (nState != -1)
@@ -59,10 +65,13 @@ namespace FFAlarm
             {
                 ConnectState?.Invoke(2, "PLC连接失败");
             }
-            //连接视觉模块
-
+            
 
             myPlc.RecvData += MyPlc_RecvData;
+
+            //连接视觉模块
+            VisinoMod.Connect();
+            VisinoMod.DetectionOnceEvent += VisinoMod_DetectionOnceEvent;
 
             runThread = new Thread(WorkFun)
             {
@@ -71,20 +80,34 @@ namespace FFAlarm
             runThread.Start();
 
         }
+        static HashSet<string> item = new HashSet<string>();
+        private static void VisinoMod_DetectionOnceEvent(object sender, DetectionResult e)
+        {
+            string[] result = e.outMessage.Split('@');
+            ResultMsg.Invoke(null, "\r\n[" + result[0] + "]: " + result[1] + "\r\n");
+            if (result[1].Equals("NG"))
+            {
+                TreatNG();
+            }
+            if (result[1].Equals("OK"))
+            {
+                item.Add(result[0]);
+            }
+            if(item.Count == VisinoMod.TestItemNumber())
+            {
+                TreatOK();
+            }
+        }
 
+
+        public static List<string> GetModeNameList()
+        {
+            return VisinoMod.ModelNameList;
+        }
         private static void MyPlc_RecvData(object sender, byte e)
         {
-            Dictionary<string, byte> InNum = new Dictionary<string, byte>();
-            InNum.Add("X0", 0x01);
-            InNum.Add("X1", 0x02);
-            InNum.Add("X2", 0x04);
-            InNum.Add("X3", 0x08);
-            InNum.Add("X4", 0x10);
-            InNum.Add("X5", 0x20);
-            InNum.Add("X6", 0x40);
-            InNum.Add("X7", 0x80);
             string IN= Settings.Default.CheckIN;
-            if (e.Equals(InNum[IN]))
+            if (e.Equals(myPlc.InNum[IN]))
             {
                 CheckSignal.Set();
             }
@@ -129,11 +152,29 @@ namespace FFAlarm
             CheckSignal.Set();
             SendMsg?.Invoke(null, "手动检测");
         }
-        public static void Test() { }
+        public static void Test() 
+        {
+            //VisinoMod.TriggerCamera();
+            VisinoMod.TriggerDetection();
+        }
+        public static void PrepareModel(string modelName)
+        {
+            VisinoMod.PrepareModel(modelName);
+        }
         public static void WritePLC(byte message)
         {
             byte[] Data = { 0x8F, message, 0x7f };
             myPlc.AddMsg(Data);
+        }
+        private static void TreatNG()
+        {
+            string OUT = Settings.Default.NGOut;
+            WritePLC(myPlc.OutNum[OUT]);
+        }
+        private static void TreatOK()
+        {
+            string OUT = Settings.Default.OKOut;
+            WritePLC(myPlc.OutNum[OUT]);
         }
 
         public static void ClearImage(string path, int day)

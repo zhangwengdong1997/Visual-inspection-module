@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisionMod
+namespace LS_VisionMod
 {
     public class Model
     {
@@ -12,6 +12,14 @@ namespace VisionMod
         /// 型号模板的名称
         /// </summary>
         public string modelName { get; set; }
+        /// <summary>
+        /// 检测步骤
+        /// </summary>
+        public List<StepName> steps { get; set; }
+        /// <summary>
+        /// 当前步骤
+        /// </summary>
+        public int nowStep { get; set; }
         /// <summary>
         /// 调用的相机
         /// </summary>
@@ -48,14 +56,7 @@ namespace VisionMod
         /// 当前检测项
         /// </summary>
         public TestItem nowTestItem { get; set; }
-        /// <summary>
-        /// 检测步骤
-        /// </summary>
-        public List<StepName> steps { get; set; }
-        /// <summary>
-        /// 当前步骤
-        /// </summary>
-        public int nowStep { get; set; }
+        
 
         public Model()
         {
