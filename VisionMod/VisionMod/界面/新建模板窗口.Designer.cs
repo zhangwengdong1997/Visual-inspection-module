@@ -57,6 +57,8 @@
             // 
             // panelMain
             // 
+            this.panelMain.AutoSize = true;
+            this.panelMain.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelMain.Location = new System.Drawing.Point(3, 44);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(993, 634);
@@ -187,9 +189,11 @@
             this.Name = "新建模板窗口";
             this.Text = "新建模板";
             this.Load += new System.EventHandler(this.新建模板窗口_Load);
+            this.Resize += new System.EventHandler(this.新建模板窗口_Resize);
             this.palNow.ResumeLayout(false);
             this.palNow.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -73,6 +73,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoControlSize.cs" />
     <Compile Include="FileOperation.cs" />
     <Compile Include="Halcon\HalconFun.cs" />
     <Compile Include="IniManager.cs" />
@@ -129,6 +130,18 @@
     <Compile Include="界面\图像显示控件.Designer.cs">
       <DependentUpon>图像显示控件.cs</DependentUpon>
     </Compile>
+    <Compile Include="界面\型号列表项.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="界面\型号列表项.designer.cs">
+      <DependentUpon>型号列表项.cs</DependentUpon>
+    </Compile>
+    <Compile Include="界面\已建模板列表控件.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="界面\已建模板列表控件.Designer.cs">
+      <DependentUpon>已建模板列表控件.cs</DependentUpon>
+    </Compile>
     <Compile Include="界面\新建模板窗口.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +153,12 @@
     </Compile>
     <Compile Include="界面\检测模板管理窗口.Designer.cs">
       <DependentUpon>检测模板管理窗口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="界面\编辑模板窗口.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="界面\编辑模板窗口.Designer.cs">
+      <DependentUpon>编辑模板窗口.cs</DependentUpon>
     </Compile>
     <Compile Include="相机\HKCameraCltr.cs" />
   </ItemGroup>
@@ -168,11 +187,20 @@
     <EmbeddedResource Include="界面\图像显示控件.resx">
       <DependentUpon>图像显示控件.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="界面\型号列表项.resx">
+      <DependentUpon>型号列表项.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="界面\已建模板列表控件.resx">
+      <DependentUpon>已建模板列表控件.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="界面\新建模板窗口.resx">
       <DependentUpon>新建模板窗口.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="界面\检测模板管理窗口.resx">
       <DependentUpon>检测模板管理窗口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="界面\编辑模板窗口.resx">
+      <DependentUpon>编辑模板窗口.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

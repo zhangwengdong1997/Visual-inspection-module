@@ -16,6 +16,7 @@ namespace FFAlarm.界面
         public 检测运行界面()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
         }
 
         private void btn开始_Click(object sender, EventArgs e)
@@ -53,18 +54,27 @@ namespace FFAlarm.界面
         private void 检测运行界面_Load(object sender, EventArgs e)
         {
             cmbModeName.DataSource = MyRun.GetModeNameList();
-            图像显示控件1.ConnectCam = "camCM";
+            图像显示控件1.ConnectCam = "cam1";
             MyRun.ResultMsg += MyRun_ResultMsg;
         }
 
         private void MyRun_ResultMsg(object sender, string e)
         {
+            if(e == null)
+            {
+                this.Invoke(new Action(() => { txtMessage.Text = ""; }));
+            }
             this.Invoke(new Action(() => { txtMessage.Text += e; }));
         }
 
         private void cmbModeName_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void 检测运行界面_Enter(object sender, EventArgs e)
+        {
+            cmbModeName.DataSource = MyRun.GetModeNameList();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace FFAlarm.界面
         public 设置界面()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
         }
 
         private void 设置界面_Load(object sender, EventArgs e)
@@ -25,6 +26,7 @@ namespace FFAlarm.界面
             cmb检测触发信号口.Text = Settings.Default.CheckIN;
             cmbOK输出信号口.Text = Settings.Default.OKOut;
             cmbNG输出信号口.Text = Settings.Default.NGOut;
+            txtDuration.Text = Settings.Default.Duration.ToString();
 
             txtOKSave.Text = Settings.Default.OKSaveTime.ToString();
             txtNGSave.Text = Settings.Default.NGSaveTime.ToString();
@@ -40,13 +42,17 @@ namespace FFAlarm.界面
             Settings.Default.CheckIN = cmb检测触发信号口.Text;
             Settings.Default.OKOut = cmbOK输出信号口.Text;
             Settings.Default.NGOut = cmbNG输出信号口.Text;
+            
 
             try
             {
-                if (int.Parse(txtOKSave.Text) <= 0 || int.Parse(txtNGSave.Text) <= 0)
+                if (int.Parse(txtOKSave.Text) <= 0 || 
+                    int.Parse(txtNGSave.Text) <= 0 ||
+                    int.Parse(txtDuration.Text) <= 0)
                 {
                     throw new Exception();
                 }
+                Settings.Default.Duration = int.Parse(txtDuration.Text);
                 Settings.Default.OKSaveTime = int.Parse(txtOKSave.Text);
                 Settings.Default.NGSaveTime = int.Parse(txtNGSave.Text);
             }
@@ -59,5 +65,6 @@ namespace FFAlarm.界面
             
             Settings.Default.Save();
         }
+
     }
 }

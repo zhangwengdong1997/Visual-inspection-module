@@ -1,6 +1,7 @@
 ﻿using CCWin;
 using CCWin.SkinControl;
 using FFAlarm.界面;
+using LS_CLASS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,9 +19,12 @@ namespace FFAlarm
         检测运行界面 runWindow = new 检测运行界面();
         模板创建界面 modelWindow = new 模板创建界面();
         设置界面 settingWindow = new 设置界面();
+        AutoControlSize autoSize;
         public FrmMain()
         {
             InitializeComponent();
+            autoSize = new AutoControlSize();
+            autoSize.InitializeControlsSize(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -81,6 +85,11 @@ namespace FFAlarm
             panelMain.Controls.Clear();
             panelMain.Controls.Add(settingWindow);
             modelWindow.Focus();
+        }
+
+        private void FrmMain_Resize(object sender, EventArgs e)
+        {
+            autoSize.Resize(this);
         }
     }
 }

@@ -23,11 +23,12 @@ namespace LS_VisionMod.模板创建步骤
         /// <summary>
         /// 循环遍历本地关联图片使用
         /// </summary>
-        int count = 0;  
+        int count = 0;
         public 相机配置(ref Model model)
         {
             InitializeComponent();
             this.model = model;
+            this.Dock = DockStyle.Fill;
         }
         public void Save()
         {
@@ -135,7 +136,7 @@ namespace LS_VisionMod.模板创建步骤
             {
                 MyRun.TriggerCamera(camName);
             }
-            else if (rdo本地模式.Checked && ImagesPath != null)
+            else if (rdo本地模式.Checked && ImagesPath.Length != 0)
             {
                 string ImagePath = ImagesPath[count++];
                 HalconFun.ReadImage(ImagePath);
@@ -159,5 +160,6 @@ namespace LS_VisionMod.模板创建步骤
             //关闭Halcon窗口
             HalconFun.ColseWindow();
         }
+
     }
 }

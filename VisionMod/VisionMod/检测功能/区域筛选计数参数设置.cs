@@ -102,6 +102,10 @@ namespace LS_VisionMod
 
         public void SetHalconImage(HObject ho_image)
         {
+            if(ho_image is null)
+            {
+                return;
+            }
             HOperatorSet.CopyImage(ho_image, out this.hImage);
         }
         private void btn选择区域_Click(object sender, EventArgs e)
@@ -133,7 +137,6 @@ namespace LS_VisionMod
         private void trbMaxGray_Scroll(object sender, EventArgs e)
         {
             nudMaxGray.Value = trbMaxGray.Value;
-
         }
 
         private void nudMinGray_ValueChanged(object sender, EventArgs e)
@@ -153,20 +156,14 @@ namespace LS_VisionMod
                 MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
-            HTuple hv_minGray = new HTuple(trbMinGray.Value);
-            HTuple hv_maxGray = new HTuple(trbMaxGray.Value);
-            HOperatorSet.ReduceDomain(hImage, hRegionIn, out HObject ho_imageReduced);
-            HOperatorSet.Threshold(ho_imageReduced, out hRegionGray, hv_minGray, hv_maxGray);
-            HOperatorSet.SetDraw(hWindow, "fill");
-            HOperatorSet.SetColor(hWindow, "green");
-            HOperatorSet.DispObj(hImage, hWindow);
-            HOperatorSet.DispObj(hRegionGray, hWindow);
-            HOperatorSet.AreaCenter(hRegionGray, out HTuple hv_area, out _, out _);
+            ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out HTuple hv_area);
             trbMinArea.Maximum = hv_area.I;
             trbMaxArea.Maximum = hv_area.I;
             nudMinArea.Maximum = hv_area.I;
             nudMaxArea.Maximum = hv_area.I;
         }
+
+        
 
         private void nudMaxGray_ValueChanged(object sender, EventArgs e)
         {
@@ -185,19 +182,23 @@ namespace LS_VisionMod
                 MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
-            HTuple hv_minGray = new HTuple(trbMinGray.Value);
-            HTuple hv_maxGray = new HTuple(trbMaxGray.Value);
+            ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out HTuple hv_area);
+            trbMinArea.Maximum = hv_area.I;
+            trbMaxArea.Maximum = hv_area.I;
+            nudMinArea.Maximum = hv_area.I;
+            nudMaxArea.Maximum = hv_area.I;
+        }
+        private void ShowThreshold(int min, int max, out HTuple hv_area)
+        {
+            HTuple hv_minGray = new HTuple(min);
+            HTuple hv_maxGray = new HTuple(max);
             HOperatorSet.ReduceDomain(hImage, hRegionIn, out HObject ho_imageReduced);
             HOperatorSet.Threshold(ho_imageReduced, out hRegionGray, hv_minGray, hv_maxGray);
             HOperatorSet.SetDraw(hWindow, "fill");
             HOperatorSet.SetColor(hWindow, "green");
             HOperatorSet.DispObj(hImage, hWindow);
             HOperatorSet.DispObj(hRegionGray, hWindow);
-            HOperatorSet.AreaCenter(hRegionGray, out HTuple hv_area, out _, out _);
-            trbMinArea.Maximum = hv_area.I;
-            trbMaxArea.Maximum = hv_area.I;
-            nudMinArea.Maximum = hv_area.I;
-            nudMaxArea.Maximum = hv_area.I;
+            HOperatorSet.AreaCenter(hRegionGray, out hv_area, out _, out _);
         }
 
         private void trbMinArea_Scroll(object sender, EventArgs e)
@@ -227,17 +228,11 @@ namespace LS_VisionMod
                 MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
-            HTuple hv_minArea = new HTuple(trbMinArea.Value);
-            HTuple hv_maxArea = new HTuple(trbMaxArea.Value);
-            HOperatorSet.Connection(hRegionGray, out HObject ho_connectedRegions);
-            HOperatorSet.SelectShape(ho_connectedRegions, out hRegionArea, "area", "and", hv_minArea, hv_maxArea);
-            HOperatorSet.SetDraw(hWindow, "fill");
-            HOperatorSet.SetColored(hWindow, 12);
-            HOperatorSet.DispObj(hImage, hWindow);
-            HOperatorSet.DispObj(hRegionArea, hWindow);
-            HOperatorSet.CountObj(hRegionArea, out HTuple hv_number);
+            ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out HTuple hv_number);
             lab当前区域个数.Text = hv_number.I.ToString();
         }
+
+
 
         private void nudMaxArea_ValueChanged(object sender, EventArgs e)
         {
@@ -256,18 +251,23 @@ namespace LS_VisionMod
                 MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
-            HTuple hv_minArea = new HTuple(trbMinArea.Value);
-            HTuple hv_maxArea = new HTuple(trbMaxArea.Value);
+            ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out HTuple hv_number);
+            lab当前区域个数.Text = hv_number.I.ToString();
+        }
+
+
+        private void ShowSelectShape(int min, int max, string features, out HTuple hv_number)
+        {
+            HTuple hv_minArea = new HTuple(min);
+            HTuple hv_maxArea = new HTuple(max);
             HOperatorSet.Connection(hRegionGray, out HObject ho_connectedRegions);
-            HOperatorSet.SelectShape(ho_connectedRegions, out hRegionArea, "area", "and", hv_minArea, hv_maxArea);
+            HOperatorSet.SelectShape(ho_connectedRegions, out hRegionArea, features, "and", hv_minArea, hv_maxArea);
             HOperatorSet.SetDraw(hWindow, "fill");
             HOperatorSet.SetColored(hWindow, 12);
             HOperatorSet.DispObj(hImage, hWindow);
             HOperatorSet.DispObj(hRegionArea, hWindow);
-            HOperatorSet.CountObj(hRegionArea, out HTuple hv_number);
-            lab当前区域个数.Text = hv_number.I.ToString();
+            HOperatorSet.CountObj(hRegionArea, out hv_number);
         }
-
         private void btn放大图像_Click(object sender, EventArgs e)
         {
             if (btn放大图像.Text.Equals("放大图像"))
@@ -286,6 +286,14 @@ namespace LS_VisionMod
                 HOperatorSet.DispObj(hImage, hWindow);
                 btn放大图像.Text = "放大图像";
             }
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            if(e.TabPage.Text.Equals("灰度"))
+                ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out _);
+            if (e.TabPage.Text.Equals("面积"))
+                ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out _);
         }
     }
 }

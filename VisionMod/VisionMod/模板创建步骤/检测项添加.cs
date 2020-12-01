@@ -22,6 +22,7 @@ namespace LS_VisionMod.模板创建步骤
         {
             InitializeComponent();
             this.model = model;
+            this.Dock = DockStyle.Fill;
         }
 
         public void Save()
@@ -56,7 +57,7 @@ namespace LS_VisionMod.模板创建步骤
             //Hashtable testItemSettings = (Hashtable)ConfigurationManager.GetSection("testItemSettings");
             //MyRun.GetTestItemList().FindIndex(x => x.Equals(testItemSettings["type"]));
             //cmb选择检测项.SelectedIndex = MyRun.GetTestItemList().FindIndex(x => x.Equals(testItemSettings["type"]));
-
+            
         }
 
         private void MyRun_SoftwareOnceEvent(object sender, TriggerIamge e)
@@ -87,7 +88,7 @@ namespace LS_VisionMod.模板创建步骤
             {
                 MyRun.TriggerCamera(model.nowCam);
             }
-            else if (rdo本地模式.Checked && ImagesPath != null)
+            else if (rdo本地模式.Checked && ImagesPath.Length != 0)
             {
                 string ImagePath = ImagesPath[count++];
                 HalconFun.ReadImage(ImagePath);
@@ -129,5 +130,6 @@ namespace LS_VisionMod.模板创建步骤
             检测项设置.Find(HalconFun.m_hoImage, parameters, out outMessage);
             txt检测结果.Text = outMessage;
         }
+
     }
 }

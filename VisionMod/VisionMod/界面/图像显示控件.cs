@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LS_VisionMod.界面
 {
@@ -26,7 +27,10 @@ namespace LS_VisionMod.界面
         {
             if (e.camName == connectCam)
             {
-                this.Invoke(new Action(() => HalconFun.ShowImage(e.ho_resultImage, hWindowControl1.HalconWindow)));
+                this.Invoke(new Action(() => {
+                    HalconFun.ShowImage(e.ho_resultImage, hWindowControl1.HalconWindow);
+                }
+                ));
             }
 
         }

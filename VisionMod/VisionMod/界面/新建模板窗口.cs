@@ -20,9 +20,13 @@ namespace LS_VisionMod.界面
         检测项添加 testItemsAddWindow;
 
         Model model;
+
+        AutoControlSize autoSize;
         public 新建模板窗口()
         {
             InitializeComponent();
+            autoSize = new AutoControlSize();
+            autoSize.InitializeControlsSize(this);
         }
 
         private void 新建模板窗口_Load(object sender, EventArgs e)
@@ -84,7 +88,22 @@ namespace LS_VisionMod.界面
 
         private void btn上一步_Click(object sender, EventArgs e)
         {
+            if (model.nowStep == 1)
+            {
+                btn上一步.Visible = false;
+            }
+            model.nowStep--;
+            panelMain.Controls.Clear();
+            Control stepsControl = GetStepWindow(model.steps[model.nowStep]);
+            panelMain.Controls.Add(stepsControl);
+            stepsControl.Focus();
+            btn下一步.Text = "下一步";
+            
+        }
 
+        private void 新建模板窗口_Resize(object sender, EventArgs e)
+        {
+            autoSize.Resize(this);
         }
     }
 }

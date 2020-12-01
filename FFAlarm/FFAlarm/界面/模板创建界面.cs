@@ -16,6 +16,7 @@ namespace FFAlarm.界面
         public 模板创建界面()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
         }
 
         private void 模板创建界面_Load(object sender, EventArgs e)

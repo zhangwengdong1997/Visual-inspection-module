@@ -18,6 +18,7 @@ namespace LS_VisionMod.模板创建步骤
         {
             InitializeComponent();
             this.model = model;
+            this.Dock = DockStyle.Fill;
         }
         public void Save()
         {
@@ -85,5 +86,6 @@ namespace LS_VisionMod.模板创建步骤
             stepNames.Add(StepName.检测项添加);
             ShowStepList("检测项添加");
         }
+
     }
 }

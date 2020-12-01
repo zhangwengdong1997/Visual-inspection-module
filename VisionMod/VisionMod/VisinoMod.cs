@@ -15,17 +15,19 @@ namespace LS_VisionMod
 
         public static event EventHandler<TriggerIamge> SoftwareOnceEvent;
         public static event EventHandler<DetectionResult> DetectionOnceEvent;
-        
+
 
 
         // public  SoftwareOnceEvent softwareOnceEvent;
         public static List<string> ModelNameList => MyRun.GetModelNameList();
+
+        static object obj = new object();
         public static bool Connect()
         {
             if (havConect)
                 return true;
             int nRet = MyRun.Init();
-            if(nRet == 0)
+            if (nRet == 0)
             {
                 havConect = true;
                 return true;
@@ -44,76 +46,99 @@ namespace LS_VisionMod
         static Model UseModel;
         public static bool PrepareModel(string modelName)
         {
-            UseModel = MyRun.ReadModelJS(modelName);
-            if (UseModel is null)
-            {
-                ErrorMsg = "模板" + modelName + "不存在";
-                return false;
-            }
-            UseCamsName.Clear();
-            foreach (var cam in UseModel.cams)
-            {
-                MyRun.SetCameraExposureTime(cam.CamName, cam.ExposureTime);
-                UseCamsName.Add(cam.CamName);
-            }
-            UseTestItems.Clear();
-            foreach (var testItem in UseModel.testItems)
-            {
-                UseTestItems.Add(MyRun.GetTestItem(testItem));
-            }
-            return true;
+                UseModel = MyRun.ReadModelJS(modelName);
+                if (UseModel is null)
+                {
+                    ErrorMsg = "模板" + modelName + "不存在";
+                    return false;
+                }
+                UseCamsName.Clear();
+                foreach (var cam in UseModel.cams)
+                {
+                    MyRun.SetCameraExposureTime(cam.CamName, cam.ExposureTime);
+                    UseCamsName.Add(cam.CamName);
+                }
+                UseTestItems.Clear();
+                foreach (var testItem in UseModel.testItems)
+                {
+                    UseTestItems.Add(MyRun.GetTestItem(testItem));
+                }
+                return true;
         }
 
         public static bool TriggerCamera()
         {
-            if (UseCamsName.Count == 0)
+            lock (obj)
             {
-                ErrorMsg = "未选择模板";
-                return false;
+                if (UseCamsName.Count == 0)
+                {
+                    ErrorMsg = "未选择模板";
+                    return false;
+                }
+                foreach (var camName in UseCamsName.ToArray())
+                {
+                    MyRun.TriggerCamera(camName, out HObject outImage);
+                    //HOperatorSet.ReadImage(out HObject outImage, MyRun.appPath + "//a.jpg");
+                    if (outImage != null)
+                        SoftwareOnceEvent?.Invoke(null, new TriggerIamge(camName, outImage));
+                }
+                return true;
             }
-            foreach (var camName in UseCamsName)
-            {
-                MyRun.TriggerCamera(camName, out HObject outImage);
-                //HOperatorSet.WriteImage(outImage, "jpg", 0, MyRun.appPath + "//a.jpg");
-                if(outImage != null)
-                    SoftwareOnceEvent?.Invoke(null, new TriggerIamge(camName, outImage));
-            }
-            return true;
         }
 
         public static bool TriggerDetection()
         {
+            lock (obj)
+            {
+                try
+                {
+                    Dictionary<string, HObject> Images = new Dictionary<string, HObject>();
+                    foreach (var camName in UseCamsName.ToArray())
+                    {
+                        MyRun.TriggerCamera(camName, out HObject outImage);
+                        if (outImage != null)
+                            Images.Add(camName, outImage);
+                    }
+
+                    foreach (var testItem in UseTestItems.ToArray())
+                    {
+                        HObject outImage = Images[testItem.camName];
+                        HObject resultImage;
+                        //图片预处理的功能暂时不加
+                        //if (testItem.imagePreprocess != null)
+                        //{
+                        //    ImagePreprocessFun[testItem.imagePreprocess.type].Read(Application.StartupPath + "\\model\\" + UseModel.modelName, testItem.imagePreprocess.name);
+                        //    ImagePreprocessFun[testItem.imagePreprocess.type].Find(outImage, out outImage);
+                        //}
+
+                        if (testItem.matching != null)
+                        {
+                            MyRun.MatchingFuns[testItem.matching.type].Read(MyRun.appPath + "\\model\\" + UseModel.modelName, testItem.matching.name);
+                            MyRun.MatchingFuns[testItem.matching.type].Find(outImage, out outImage);
+                        }
+                        testItem.Find(outImage);
+                        testItem.Show(outImage, out resultImage);
+
+                        DetectionOnceEvent?.Invoke(null, new DetectionResult(testItem.camName, Images[testItem.camName], resultImage, testItem.outMessage));
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorMsg = e.Message;
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        public static bool TriggerDetection2()
+        {
             try
             {
-                Dictionary<string, HObject> Images = new Dictionary<string, HObject>();
-                foreach (var camName in UseCamsName)
-                {
-                    MyRun.TriggerCamera(camName, out HObject outImage);
-                    if (outImage != null)
-                        Images.Add(camName, outImage);
-                }
+                
 
-                foreach (var testItem in UseTestItems)
-                {
-                    HObject outImage = Images[testItem.camName];
-                    HObject resultImage;
-                    //图片预处理的功能暂时不加
-                    //if (testItem.imagePreprocess != null)
-                    //{
-                    //    ImagePreprocessFun[testItem.imagePreprocess.type].Read(Application.StartupPath + "\\model\\" + UseModel.modelName, testItem.imagePreprocess.name);
-                    //    ImagePreprocessFun[testItem.imagePreprocess.type].Find(outImage, out outImage);
-                    //}
 
-                    if (testItem.matching != null)
-                    {
-                        MyRun.MatchingFuns[testItem.matching.type].Read(MyRun.appPath + "\\model\\" + UseModel.modelName, testItem.matching.name);
-                        MyRun.MatchingFuns[testItem.matching.type].Find(outImage, out outImage);
-                    }
-                    testItem.Find(outImage);
-                    testItem.Show(outImage, out resultImage);
-                    
-                    DetectionOnceEvent?.Invoke(null, new DetectionResult(testItem.camName, Images[testItem.camName], resultImage, testItem.outMessage));
-                }
+
             }
             catch (Exception e)
             {
@@ -122,11 +147,5 @@ namespace LS_VisionMod
             }
             return true;
         }
-
-        
-
-
-
-
     }
 }

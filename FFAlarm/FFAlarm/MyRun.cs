@@ -14,7 +14,6 @@ namespace FFAlarm
     class MyRun
     {
         static CMyPlc myPlc;
-        static VisinoMod visinoMod;
         static Thread runThread;
         /// <summary>
         /// 发送运行中的一些信息
@@ -83,6 +82,10 @@ namespace FFAlarm
         static HashSet<string> item = new HashSet<string>();
         private static void VisinoMod_DetectionOnceEvent(object sender, DetectionResult e)
         {
+            if(item.Count == 0)
+            {
+                ResultMsg.Invoke(null, null);
+            }
             string[] result = e.outMessage.Split('@');
             ResultMsg.Invoke(null, "\r\n[" + result[0] + "]: " + result[1] + "\r\n");
             if (result[1].Equals("NG"))
@@ -96,6 +99,7 @@ namespace FFAlarm
             if(item.Count == VisinoMod.TestItemNumber())
             {
                 TreatOK();
+                item.Clear();             
             }
         }
 
@@ -126,6 +130,7 @@ namespace FFAlarm
                     ClearImage("NG", Settings.Default.NGSaveTime);
 
                 }
+                VisinoMod.TriggerCamera();
                 if (CheckSignal.WaitOne(100) == false)
                     continue;
                 if (nState != 1)
@@ -168,13 +173,26 @@ namespace FFAlarm
         }
         private static void TreatNG()
         {
-            string OUT = Settings.Default.NGOut;
-            WritePLC(myPlc.OutNum[OUT]);
+            new Thread(() =>
+            {
+                string OUT = Settings.Default.NGOut;
+                WritePLC(myPlc.OutNum[OUT]);
+                Thread.Sleep(Settings.Default.Duration);
+                WritePLC(myPlc.OutNum["无"]);
+            })
+            { IsBackground = true }.Start();
+
         }
         private static void TreatOK()
         {
-            string OUT = Settings.Default.OKOut;
-            WritePLC(myPlc.OutNum[OUT]);
+            new Thread(() =>
+            {
+                string OUT = Settings.Default.OKOut;
+                WritePLC(myPlc.OutNum[OUT]);
+                Thread.Sleep(Settings.Default.Duration);
+                WritePLC(myPlc.OutNum["无"]);
+            })
+            { IsBackground = true }.Start();
         }
 
         public static void ClearImage(string path, int day)

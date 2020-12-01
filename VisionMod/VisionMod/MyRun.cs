@@ -40,10 +40,11 @@ namespace LS_VisionMod
 
             //加载检测项参数设置控件
             ParameterSettingControls = new Dictionary<string, I检测参数设置>();
-            字符识别参数设置 字符识别 = new 字符识别参数设置();
-            ParameterSettingControls.Add("字符识别", 字符识别);
             区域筛选计数参数设置 区域筛选计数 = new 区域筛选计数参数设置();
             ParameterSettingControls.Add("区域筛选计数", 区域筛选计数);
+            字符识别参数设置 字符识别 = new 字符识别参数设置();
+            ParameterSettingControls.Add("字符识别", 字符识别);
+            
 
             ////加载可选预处理功能
             //ImagePreprocessFun = new Dictionary<string, 预处理功能>();
@@ -54,7 +55,7 @@ namespace LS_VisionMod
         public static List<string> GetModelNameList()
         {
             List<string> modelNamelist = new List<string>();
-            List<String> modelDirectorylist = FileOperation.GetAllDirectoryName(Application.StartupPath + "\\model");
+            List<String> modelDirectorylist = FileOperation.GetAllDirectoryName(appPath + "\\model");
             foreach (var modelDirectory in modelDirectorylist)
             {
                 Model model = MyRun.ReadModelJS(modelDirectory);

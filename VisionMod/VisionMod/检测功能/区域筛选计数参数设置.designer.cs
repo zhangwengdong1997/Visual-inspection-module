@@ -217,6 +217,11 @@
             this.nudMaxGray.Name = "nudMaxGray";
             this.nudMaxGray.Size = new System.Drawing.Size(62, 21);
             this.nudMaxGray.TabIndex = 21;
+            this.nudMaxGray.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.nudMaxGray.ValueChanged += new System.EventHandler(this.nudMaxGray_ValueChanged);
             // 
             // trbMaxGray
@@ -409,6 +414,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(466, 137);
             this.tabControl1.TabIndex = 39;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // 区域筛选计数参数设置
             // 

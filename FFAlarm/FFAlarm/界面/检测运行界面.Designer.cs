@@ -116,6 +116,7 @@
             this.Name = "检测运行界面";
             this.Size = new System.Drawing.Size(892, 730);
             this.Load += new System.EventHandler(this.检测运行界面_Load);
+            this.Enter += new System.EventHandler(this.检测运行界面_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

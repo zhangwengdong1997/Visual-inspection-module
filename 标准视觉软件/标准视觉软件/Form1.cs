@@ -14,6 +14,8 @@ namespace 标准视觉软件
     {
         public Form1()
         {
+            char a = (char)0x02;
+            char b = (char)0x03;
             InitializeComponent();
         }
 

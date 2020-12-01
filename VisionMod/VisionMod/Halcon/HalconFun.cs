@@ -29,6 +29,7 @@ namespace LS_VisionMod
         {
             if (m_historyRegions.Count > 0)
             {
+                HObjectEmpty(ref m_hoRegion);
                 m_hoRegion = m_historyRegions.Last();
                 m_historyRegions.RemoveAt(m_historyRegions.Count - 1);
 
@@ -56,17 +57,23 @@ namespace LS_VisionMod
             //获取交错格式图像指针
             HOperatorSet.GetImagePointer1(InterImage, out HTuple Pointer, out _, out HTuple width, out HTuple height);
             IntPtr ptr = Pointer;
+            InterImage.Dispose();
             //构建新Bitmap图像
             return new Bitmap(width / 4, height, width, PixelFormat.Format24bppRgb, ptr); ;
         }
 
         public static void WriteImage(string path, string fileName)
         {
-            HOperatorSet.WriteImage(m_hoImage, "jpg", 0, path + "\\" + fileName);
+            if(m_hoImage != null)
+            {
+                HOperatorSet.WriteImage(m_hoImage, "jpg", 0, path + "\\" + fileName);
+            }
+            
         }
 
         public static void ReadImage(string path)
         {
+            HObjectEmpty(ref m_hoImage);
             HOperatorSet.ReadImage(out m_hoImage, path);
         }
         public static void ShowImage()
@@ -82,6 +89,7 @@ namespace LS_VisionMod
         }
         public static void ShowImage(HObject ho_Image)
         {
+            HObjectEmpty(ref m_hoImage);
             m_hoImage = ho_Image;
             ShowImage();
         }
@@ -90,6 +98,7 @@ namespace LS_VisionMod
             HOperatorSet.GetImagePointer1(ho_Image, out _, out _, out HTuple Width, out HTuple Height);
             HOperatorSet.SetPart(hvWindowHandle, 0, 0, Height, Width);
             HOperatorSet.DispObj(ho_Image, hvWindowHandle);
+            ho_Image.Dispose();
 
         }
         public static void OpenWindow(PictureBox pictureBox, out HTuple hvWindowHandle)
@@ -144,24 +153,28 @@ namespace LS_VisionMod
         public static void DrawRectangle1()
         {
             HOperatorSet.DrawRectangle1(m_hvWindowHandle, out HTuple hv_row1, out HTuple hv_column1, out HTuple hv_row2, out HTuple hv_column2);
+            HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenRectangle1(out m_hoRegion, hv_row1, hv_column1, hv_row2, hv_column2);
         }
 
         public static void DrawRectangle2()
         {
             HOperatorSet.DrawRectangle2(m_hvWindowHandle, out HTuple hv_row, out HTuple hv_column, out HTuple hv_phi, out HTuple hv_length1, out HTuple hv_length2);
+            HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenRectangle2(out m_hoRegion, hv_row, hv_column, hv_phi, hv_length1, hv_length2);
         }
 
         public static void DrawCircle()
         {
             HOperatorSet.DrawCircle(m_hvWindowHandle, out HTuple hv_row, out HTuple hv_column, out HTuple hv_radius);
+            HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenCircle(out m_hoRegion, hv_row, hv_column, hv_radius);
         }
 
         public static void DrawPolygon()
         {
             HOperatorSet.DrawPolygon(out HObject ho_PolygonRegion, m_hvWindowHandle);
+            HObjectEmpty(ref m_hoRegion);
             HOperatorSet.ShapeTrans(ho_PolygonRegion, out m_hoRegion, "convex");
         }
 
@@ -192,10 +205,6 @@ namespace LS_VisionMod
             if (hObject != null)
             {
                 hObject.Dispose();
-            }
-            else
-            {
-                HOperatorSet.GenEmptyObj(out hObject);
             }
         }
 

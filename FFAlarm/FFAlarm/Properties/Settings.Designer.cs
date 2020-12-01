@@ -94,5 +94,17 @@ namespace FFAlarm.Properties {
                 this["NGOut"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public int Duration {
+            get {
+                return ((int)(this["Duration"]));
+            }
+            set {
+                this["Duration"] = value;
+            }
+        }
     }
 }

@@ -21,15 +21,7 @@ namespace teat
         private void Form1_Load(object sender, EventArgs e)
         {
             VisinoMod.Connect();
-            图像显示控件1.ConnectCam = "camCM";
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            VisinoMod.PrepareModel("123");
-            //VisinoMod.TriggerCamera();
-            VisinoMod.TriggerDetection();
-
-        }
     }
 }

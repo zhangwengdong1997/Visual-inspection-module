@@ -23,6 +23,7 @@ namespace LS_VisionMod.模板创建步骤
         {
             InitializeComponent();
             this.model = model;
+            this.Dock = DockStyle.Fill;
         }
         public void Save()
         {
@@ -173,8 +174,9 @@ namespace LS_VisionMod.模板创建步骤
             {
                 MyRun.TriggerCamera(model.nowCam);
             }
-            else if (rdo本地模式.Checked && ImagesPath != null)
+            else if (rdo本地模式.Checked && ImagesPath.Length != 0)
             {
+                count %= ImagesPath.Length;
                 string ImagePath = ImagesPath[count++];
                 HalconFun.ReadImage(ImagePath);
                 if (chb测试定位模板.Checked)

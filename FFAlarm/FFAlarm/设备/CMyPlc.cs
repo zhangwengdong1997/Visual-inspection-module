@@ -19,6 +19,7 @@ namespace FFAlarm
         
         private void DictionaryInit()
         {
+            InNum.Add("无", 0x00);
             InNum.Add("X0", 0x01);
             InNum.Add("X1", 0x02);
             InNum.Add("X2", 0x04);
@@ -27,6 +28,7 @@ namespace FFAlarm
             InNum.Add("X5", 0x20);
             InNum.Add("X6", 0x40);
             InNum.Add("X7", 0x80);
+            OutNum.Add("无", 0x00);
             OutNum.Add("Y0", 0x01);
             OutNum.Add("Y1", 0x02);
             OutNum.Add("Y2", 0x04);

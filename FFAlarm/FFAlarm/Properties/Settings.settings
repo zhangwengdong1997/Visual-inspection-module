@@ -20,5 +20,8 @@
     <Setting Name="NGOut" Type="System.String" Scope="User">
       <Value Profile="(Default)">Y1</Value>
     </Setting>
+    <Setting Name="Duration" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

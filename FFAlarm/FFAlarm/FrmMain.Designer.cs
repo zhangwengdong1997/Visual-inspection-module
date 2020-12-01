@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.panelSwitchButton = new System.Windows.Forms.Panel();
             this.btn设置 = new CCWin.SkinControl.SkinButton();
             this.btn检测 = new CCWin.SkinControl.SkinButton();
@@ -140,9 +141,11 @@
             this.Controls.Add(this.panelMessage);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelSwitchButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
-            this.Text = "Form1";
+            this.Text = "塑壳识别定位引导系统";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.FrmMain_Resize);
             this.panelSwitchButton.ResumeLayout(false);
             this.panelMessage.ResumeLayout(false);
             this.panelMessage.PerformLayout();
