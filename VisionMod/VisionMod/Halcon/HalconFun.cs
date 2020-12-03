@@ -84,7 +84,7 @@ namespace LS_VisionMod
             }
 
             HOperatorSet.GetImagePointer1(m_hoImage, out _, out _, out HTuple Width, out HTuple Height);
-            HOperatorSet.SetPart(m_hvWindowHandle, 0, 0, Height, Width);
+            HOperatorSet.SetPart(m_hvWindowHandle, 0, 0, Height - 1, Width - 1);
             HOperatorSet.DispObj(m_hoImage, m_hvWindowHandle);
         }
         public static void ShowImage(HObject ho_Image)
@@ -96,7 +96,7 @@ namespace LS_VisionMod
         public static void ShowImage(HObject ho_Image, HTuple hvWindowHandle)
         {
             HOperatorSet.GetImagePointer1(ho_Image, out _, out _, out HTuple Width, out HTuple Height);
-            HOperatorSet.SetPart(hvWindowHandle, 0, 0, Height, Width);
+            HOperatorSet.SetPart(hvWindowHandle, 0, 0, Height - 1, Width - 1);
             HOperatorSet.DispObj(ho_Image, hvWindowHandle);
             ho_Image.Dispose();
 

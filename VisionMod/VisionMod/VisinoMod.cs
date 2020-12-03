@@ -1,8 +1,11 @@
 ﻿using HalconDotNet;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LS_VisionMod
@@ -12,11 +15,16 @@ namespace LS_VisionMod
 
         static bool havConect = false;
         public static string ErrorMsg;
-
+        /// <summary>
+        /// 拍照事件
+        /// </summary>
         public static event EventHandler<TriggerIamge> SoftwareOnceEvent;
+        /// <summary>
+        /// 检测事件
+        /// </summary>
         public static event EventHandler<DetectionResult> DetectionOnceEvent;
 
-
+        private static int camSleepTime = 20;
 
         // public  SoftwareOnceEvent softwareOnceEvent;
         public static List<string> ModelNameList => MyRun.GetModelNameList();
@@ -43,6 +51,9 @@ namespace LS_VisionMod
         public static List<string> UseCamsName = new List<string>();
         public static List<检测功能> UseTestItems = new List<检测功能>();
 
+        public static ConcurrentDictionary<string, Bitmap> ImagePool = new ConcurrentDictionary<string, Bitmap>();
+
+        
         static Model UseModel;
         public static bool PrepareModel(string modelName)
         {
@@ -56,6 +67,7 @@ namespace LS_VisionMod
                 foreach (var cam in UseModel.cams)
                 {
                     MyRun.SetCameraExposureTime(cam.CamName, cam.ExposureTime);
+                    
                     UseCamsName.Add(cam.CamName);
                 }
                 UseTestItems.Clear();
@@ -147,5 +159,15 @@ namespace LS_VisionMod
             }
             return true;
         }
+
+        //public void CameraThreading(string camName)
+        //{
+        //    while (true)
+        //    {
+        //        MyRun.TriggerCamera(camName, );
+        //        ImagePool.TryAdd(camName,)
+        //        Thread.Sleep(camSleepTime);
+        //    }
+        //}
     }
 }

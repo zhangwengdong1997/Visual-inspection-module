@@ -12,7 +12,7 @@ namespace LS_VisionMod
 {
     class MyRun
     {
-        static HkCameraCltr cameraCltr;
+        static HKCamera cameraCltr;
         public static Dictionary<string, MatchingFun> MatchingFuns;
         public static Dictionary<string, I检测参数设置> ParameterSettingControls;
 
@@ -27,7 +27,7 @@ namespace LS_VisionMod
         public static int Init()
         {
             //连接相机
-            cameraCltr = new HkCameraCltr();
+            cameraCltr = new HKCamera();
             if (!cameraCltr.strErrorMsg.Equals(""))
             {
                 ErrorMsg = cameraCltr.strErrorMsg;
@@ -69,11 +69,11 @@ namespace LS_VisionMod
         #region 相机
         public static List<string> GetCameraList()
         {
-            return HkCameraCltr.GetListUserDefinedName();
+            return HKCamera.GetListUserDefinedName();
         }
         public static float GetCamExposureTime(string camName)
         {
-            int nRet = cameraCltr.DicMyCamera[camName].MV_CC_GetExposureTime_NET(ref ExposureTime);
+            int nRet = cameraCltr.DicMyCamera(camName).MV_CC_GetExposureTime_NET(ref ExposureTime);
             if (MyCamera.MV_OK != nRet)
             {
                 //警告相机参数获取失败
@@ -83,7 +83,7 @@ namespace LS_VisionMod
         }
         public static float GetCamExposureTimeLower(string camName)
         {
-            int nRet = cameraCltr.DicMyCamera[camName].MV_CC_GetAutoExposureTimeLower_NET(ref Lower);
+            int nRet = cameraCltr.DicMyCamera(camName).MV_CC_GetAutoExposureTimeLower_NET(ref Lower);
             if (MyCamera.MV_OK != nRet)
             {
                 //警告相机参数获取失败
@@ -93,7 +93,7 @@ namespace LS_VisionMod
         }
         public static float GetCamExposureTimeUpper(string camName)
         {
-            int nRet = cameraCltr.DicMyCamera[camName].MV_CC_GetAutoExposureTimeUpper_NET(ref Upper);
+            int nRet = cameraCltr.DicMyCamera(camName).MV_CC_GetAutoExposureTimeUpper_NET(ref Upper);
             if (MyCamera.MV_OK != nRet)
             {
                 //警告相机参数获取失败
@@ -104,7 +104,7 @@ namespace LS_VisionMod
         public static void SetCameraExposureTime(string camName, float exposureTime)
         {
             string sParamName = "ExposureTime";
-            int nRet = cameraCltr.DicMyCamera[camName].MV_CC_SetFloatValue_NET(sParamName, exposureTime);
+            int nRet = cameraCltr.DicMyCamera(camName).MV_CC_SetFloatValue_NET(sParamName, exposureTime);
             if (MyCamera.MV_OK != nRet)
             {
                 //警告相机曝光设置失败

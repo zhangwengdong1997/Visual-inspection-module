@@ -76,6 +76,7 @@
     <Compile Include="AutoControlSize.cs" />
     <Compile Include="FileOperation.cs" />
     <Compile Include="Halcon\HalconFun.cs" />
+    <Compile Include="HKCamera.cs" />
     <Compile Include="IniManager.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MyRun.cs" />
