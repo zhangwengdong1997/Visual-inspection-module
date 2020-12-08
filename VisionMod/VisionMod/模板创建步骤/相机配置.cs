@@ -32,7 +32,15 @@ namespace LS_VisionMod.模板创建步骤
         }
         public void Save()
         {
-            model.cams.Add(new Cam(camName, exposureTime));
+            var cam = model.cams.Find(x => x.CamName == model.nowCam);
+            if(cam == null)
+            {
+                model.cams.Add(new Cam(camName, exposureTime));
+            }
+            else
+            {
+                cam.ExposureTime = exposureTime;
+            }
             model.nowCam = camName;
             model.camNum++;
             model.nowStep++;

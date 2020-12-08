@@ -93,6 +93,7 @@ namespace LS_VisionMod
                     //HOperatorSet.ReadImage(out HObject outImage, MyRun.appPath + "//a.jpg");
                     if (outImage != null)
                         SoftwareOnceEvent?.Invoke(null, new TriggerIamge(camName, outImage));
+                    outImage.Dispose();
                 }
                 return true;
             }
@@ -132,6 +133,8 @@ namespace LS_VisionMod
                         testItem.Show(outImage, out resultImage);
 
                         DetectionOnceEvent?.Invoke(null, new DetectionResult(testItem.camName, Images[testItem.camName], resultImage, testItem.outMessage));
+                        outImage.Dispose();
+                        resultImage.Dispose();
                     }
                 }
                 catch (Exception e)

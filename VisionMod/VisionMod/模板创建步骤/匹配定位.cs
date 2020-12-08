@@ -134,6 +134,10 @@ namespace LS_VisionMod.模板创建步骤
         private void btn创建模板_Click(object sender, EventArgs e)
         {
             matchingfun = MyRun.GetMatchingFun(cmb定位模板类型.Text);
+            if (HalconFun.m_hoRegion == null)
+            {
+                MessageBox.Show("请先新建区域");
+            }
             matchingfun.Create(HalconFun.m_hoImage, HalconFun.m_hoRegion);
             HalconFun.ShowRegion(matchingfun.outContour, Color.Green);
             havWrite = false;

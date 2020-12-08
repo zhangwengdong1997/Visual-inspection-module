@@ -39,8 +39,10 @@ namespace LS_VisionMod.界面
             //imagePretreatWindow = new 图像预处理();
             matchingWindow = new 匹配定位(ref model);
             testItemsAddWindow = new 检测项添加(ref model);
+
             //进入模板类型选择界面
             panelMain.Controls.Add(chooseModelTypeWindow);
+
             btn上一步.Visible = false;
 
             cmb当前相机.DataSource = MyRun.GetCameraList();

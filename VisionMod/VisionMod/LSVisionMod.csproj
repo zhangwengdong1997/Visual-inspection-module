@@ -76,7 +76,13 @@
     <Compile Include="AutoControlSize.cs" />
     <Compile Include="FileOperation.cs" />
     <Compile Include="Halcon\HalconFun.cs" />
-    <Compile Include="HKCamera.cs" />
+    <Compile Include="模板创建步骤\检测项编辑.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="模板创建步骤\检测项编辑.Designer.cs">
+      <DependentUpon>检测项编辑.cs</DependentUpon>
+    </Compile>
+    <Compile Include="相机\HKCamera.cs" />
     <Compile Include="IniManager.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MyRun.cs" />
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="界面\检测模板管理窗口.resx">
       <DependentUpon>检测模板管理窗口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="模板创建步骤\检测项编辑.resx">
+      <DependentUpon>检测项编辑.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="界面\编辑模板窗口.resx">
       <DependentUpon>编辑模板窗口.cs</DependentUpon>

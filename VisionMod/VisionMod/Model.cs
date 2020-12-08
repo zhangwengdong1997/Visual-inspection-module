@@ -74,7 +74,8 @@ namespace LS_VisionMod
         相机配置 = 1,
         图像预处理 = 2,
         匹配定位 = 3,
-        检测项添加 = 4
+        检测项添加 = 4,
+        检测项编辑 = 5
     }
 
     public class Cam

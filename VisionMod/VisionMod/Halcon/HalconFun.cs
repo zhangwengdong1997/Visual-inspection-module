@@ -90,7 +90,7 @@ namespace LS_VisionMod
         public static void ShowImage(HObject ho_Image)
         {
             HObjectEmpty(ref m_hoImage);
-            m_hoImage = ho_Image;
+            HOperatorSet.CopyImage(ho_Image, out m_hoImage);
             ShowImage();
         }
         public static void ShowImage(HObject ho_Image, HTuple hvWindowHandle)

@@ -118,6 +118,7 @@ namespace LS_VisionMod
             int nRet = cameraCltr.Capture(camName, out outImage);
             if (nRet == 0)
                 SoftwareOnceEvent?.Invoke(null, new TriggerIamge(camName, outImage));
+            outImage.Dispose();
         }
         public static void TriggerCamera(string camName, out HObject outImage)
         {
@@ -180,7 +181,7 @@ namespace LS_VisionMod
     {
         public string camName;
         public HObject ho_Image;
-        public Bitmap bitmap { get => HalconFun.Honject2Bitmap(ho_Image); }
+        //public Bitmap bitmap { get => HalconFun.Honject2Bitmap(ho_Image); }
         //public string time;
         public TriggerIamge(string camName, HObject ho_Image)
         {
@@ -194,8 +195,8 @@ namespace LS_VisionMod
         public string camName;
         public HObject ho_outImage;
         public HObject ho_resultImage;
-        public Bitmap outBitmap { get => HalconFun.Honject2Bitmap(ho_outImage); }
-        public Bitmap resultBitmap { get => HalconFun.Honject2Bitmap(ho_resultImage); }
+        //public Bitmap outBitmap { get => HalconFun.Honject2Bitmap(ho_outImage); }
+        //public Bitmap resultBitmap { get => HalconFun.Honject2Bitmap(ho_resultImage); }
         public string outMessage;
         public DetectionResult(string camName, HObject ho_outImage, HObject ho_resultImage, string outMessage)
         {

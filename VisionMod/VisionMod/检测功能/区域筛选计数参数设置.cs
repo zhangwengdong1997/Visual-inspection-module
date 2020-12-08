@@ -290,7 +290,17 @@ namespace LS_VisionMod
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            if(e.TabPage.Text.Equals("灰度"))
+            if (hImage == null)
+            {
+                MessageBox.Show("请先获取图片");
+                return;
+            }
+            if (hRegionIn == null)
+            {
+                MessageBox.Show("请先选择感兴趣区域");
+                return;
+            }
+            if (e.TabPage.Text.Equals("灰度"))
                 ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out _);
             if (e.TabPage.Text.Equals("面积"))
                 ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out _);

@@ -54,7 +54,7 @@ namespace FFAlarm.界面
         private void 检测运行界面_Load(object sender, EventArgs e)
         {
             cmbModeName.DataSource = MyRun.GetModeNameList();
-            图像显示控件1.ConnectCam = "cam1";
+            图像显示控件1.ConnectCam = "122";
             MyRun.ResultMsg += MyRun_ResultMsg;
         }
 
