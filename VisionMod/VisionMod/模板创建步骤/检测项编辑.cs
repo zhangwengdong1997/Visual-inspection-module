@@ -16,11 +16,11 @@ namespace LS_VisionMod.模板创建步骤
         Model model;
         DataTable testItemsTable;
         编辑模板窗口 fatherForm;
-        public 检测项编辑(ref Model model, 编辑模板窗口 fatherForm)
+        public 检测项编辑(ref Model model, Form fatherForm)
         {
             InitializeComponent();
             this.model = model;
-            this.fatherForm = fatherForm;
+            this.fatherForm = fatherForm as 编辑模板窗口;
             InitDataTable();
             this.Dock = DockStyle.Fill;
         }
@@ -38,19 +38,13 @@ namespace LS_VisionMod.模板创建步骤
 
         public void ShowDataTable()
         {
+            testItemsTable.Rows.Clear();
             foreach (var testItem in model.testItems)
             {
                 DataRow row = testItemsTable.NewRow();
                 row["检测项名称"] = testItem.name;
                 row["使用相机"] = testItem.CamName;
-                if(testItem.Match != null)
-                {
-                    row["定位模板"] = testItem.Match.name;
-                }
-                else
-                {
-                    row["定位模板"] = "无";
-                }
+                row["定位模板"] = testItem.MatchName;
                 row["检测功能"] = testItem.type;
                 testItemsTable.Rows.Add(row);
             }
@@ -61,11 +55,15 @@ namespace LS_VisionMod.模板创建步骤
 
         }
 
-        public void Save()
+        public void Add()
         {
             
         }
 
+        public void Revise()
+        {
+            
+        }
         private void btn修改使用相机_Click(object sender, EventArgs e)
         {
             if (dgv检测项.CurrentRow != null)
@@ -91,6 +89,12 @@ namespace LS_VisionMod.模板创建步骤
                 model.nowTestItem = model.testItems[dgv检测项.CurrentRow.Index];
                 fatherForm.SwitchWindow(StepName.检测项添加);
             }
+        }
+
+        private void 检测项编辑_Enter(object sender, EventArgs e)
+        {
+
+            ShowDataTable();
         }
     }
 }

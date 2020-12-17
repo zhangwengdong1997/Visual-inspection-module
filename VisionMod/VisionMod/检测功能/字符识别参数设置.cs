@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using HalconDotNet;
+using Newtonsoft.Json.Linq;
 
 namespace LS_VisionMod
 {
@@ -122,7 +123,33 @@ namespace LS_VisionMod
             outMessage = hv_Word.S;
         }
 
-        private int myOcrSplit(HObject ho_inImage, HObject ho_inRegion, HTuple hv_ocrClassifier,
+        public void Create(TestItem testItem)
+        {
+            List<Parameter> inParameters = testItem.parameters;
+
+            string ocrClassifier = Application.StartupPath + "\\OCR\\" + inParameters[0].value as string;
+            string standardText = inParameters[1].value as string;
+            int charCount = int.Parse(inParameters[2].value.ToString());
+            bool lightOnDark = (bool)inParameters[3].value;
+            JArray lists = inParameters[4].value as JArray;
+            float row1, column1, row2, column2;
+            row1 = (float)lists[0];
+            column1 = (float)lists[1];
+            row2 = (float)lists[2];
+            column2 = (float)lists[3];
+
+
+            cmb选择字体库.Text = ocrClassifier;
+            txt标准文本.Text = standardText;
+            rdo白底黑字.Checked = !lightOnDark;
+
+            txtRow1.Text = row1.ToString();
+            txtColumn1.Text = column1.ToString();
+            txtRow2.Text = row2.ToString();
+            txtColumn2.Text = column2.ToString();
+        }
+
+            private int myOcrSplit(HObject ho_inImage, HObject ho_inRegion, HTuple hv_ocrClassifier,
             HTuple hv_standardText, HTuple hv_charCount, HTuple hv_returnPunctuation, HTuple hv_lightOnDark,
             out HTuple hv_Word)
         {

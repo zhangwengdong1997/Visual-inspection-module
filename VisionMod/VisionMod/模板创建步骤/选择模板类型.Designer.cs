@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.btn默认 = new System.Windows.Forms.Button();
             this.txt模板名称 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,21 +47,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.btn默认);
             this.panel1.Location = new System.Drawing.Point(77, 194);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(291, 362);
             this.panel1.TabIndex = 38;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(46, 154);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(198, 54);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "单相机固定位置单检测项";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // btn默认
             // 
@@ -208,7 +197,6 @@
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btn默认;
         private System.Windows.Forms.TextBox txt模板名称;
         private System.Windows.Forms.Label label4;

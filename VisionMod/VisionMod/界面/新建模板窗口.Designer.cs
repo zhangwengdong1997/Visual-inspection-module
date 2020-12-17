@@ -81,6 +81,7 @@
             this.cmb当前检测项.Name = "cmb当前检测项";
             this.cmb当前检测项.Size = new System.Drawing.Size(111, 20);
             this.cmb当前检测项.TabIndex = 21;
+            this.cmb当前检测项.SelectedIndexChanged += new System.EventHandler(this.cmb当前检测项_SelectedIndexChanged);
             // 
             // cmb当前图像预处理
             // 
@@ -89,6 +90,7 @@
             this.cmb当前图像预处理.Name = "cmb当前图像预处理";
             this.cmb当前图像预处理.Size = new System.Drawing.Size(111, 20);
             this.cmb当前图像预处理.TabIndex = 23;
+            this.cmb当前图像预处理.SelectedIndexChanged += new System.EventHandler(this.cmb当前图像预处理_SelectedIndexChanged);
             // 
             // lab当前型号
             // 
@@ -132,6 +134,7 @@
             this.cmb当前定位.Name = "cmb当前定位";
             this.cmb当前定位.Size = new System.Drawing.Size(111, 20);
             this.cmb当前定位.TabIndex = 21;
+            this.cmb当前定位.SelectedIndexChanged += new System.EventHandler(this.cmb当前定位_SelectedIndexChanged);
             // 
             // lab当前定位
             // 
@@ -149,6 +152,7 @@
             this.cmb当前相机.Name = "cmb当前相机";
             this.cmb当前相机.Size = new System.Drawing.Size(111, 20);
             this.cmb当前相机.TabIndex = 20;
+            this.cmb当前相机.SelectedIndexChanged += new System.EventHandler(this.cmb当前相机_SelectedIndexChanged);
             // 
             // lab当前检测项
             // 
@@ -175,7 +179,6 @@
             this.palNow.Name = "palNow";
             this.palNow.Size = new System.Drawing.Size(1003, 35);
             this.palNow.TabIndex = 28;
-            this.palNow.Visible = false;
             // 
             // 新建模板窗口
             // 

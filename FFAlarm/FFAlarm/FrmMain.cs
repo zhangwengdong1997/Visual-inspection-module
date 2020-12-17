@@ -73,10 +73,24 @@ namespace FFAlarm
 
         private void btn模板_Click(object sender, EventArgs e)
         {
+            if(MyRun.nState == 1)
+            {
+                DialogResult dialogResult = MessageBox.Show("进入模板编辑模式，检测会终止", "是否停止检测进入模板编辑模式", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    runWindow.StopRun();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            
             ButtonColorChange(btn模板);
             panelMain.Controls.Clear();
             panelMain.Controls.Add(modelWindow);
             modelWindow.Focus();
+
         }
 
         private void btn设置_Click(object sender, EventArgs e)

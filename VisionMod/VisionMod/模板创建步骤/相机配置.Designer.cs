@@ -46,7 +46,7 @@
             // 
             // btn添加当前图片关联相机
             // 
-            this.btn添加当前图片关联相机.Location = new System.Drawing.Point(728, 228);
+            this.btn添加当前图片关联相机.Location = new System.Drawing.Point(728, 294);
             this.btn添加当前图片关联相机.Name = "btn添加当前图片关联相机";
             this.btn添加当前图片关联相机.Size = new System.Drawing.Size(153, 45);
             this.btn添加当前图片关联相机.TabIndex = 47;
@@ -59,8 +59,9 @@
             this.lab选择相机提示.AutoSize = true;
             this.lab选择相机提示.Location = new System.Drawing.Point(678, 86);
             this.lab选择相机提示.Name = "lab选择相机提示";
-            this.lab选择相机提示.Size = new System.Drawing.Size(0, 12);
+            this.lab选择相机提示.Size = new System.Drawing.Size(77, 12);
             this.lab选择相机提示.TabIndex = 46;
+            this.lab选择相机提示.Text = "选择相机提示";
             // 
             // lab相机曝光值提示
             // 
@@ -73,7 +74,7 @@
             // rdo本地模式
             // 
             this.rdo本地模式.AutoSize = true;
-            this.rdo本地模式.Location = new System.Drawing.Point(737, 357);
+            this.rdo本地模式.Location = new System.Drawing.Point(737, 423);
             this.rdo本地模式.Name = "rdo本地模式";
             this.rdo本地模式.Size = new System.Drawing.Size(71, 16);
             this.rdo本地模式.TabIndex = 42;
@@ -84,7 +85,8 @@
             // rdo相机模式
             // 
             this.rdo相机模式.AutoSize = true;
-            this.rdo相机模式.Location = new System.Drawing.Point(631, 357);
+            this.rdo相机模式.Checked = true;
+            this.rdo相机模式.Location = new System.Drawing.Point(631, 423);
             this.rdo相机模式.Name = "rdo相机模式";
             this.rdo相机模式.Size = new System.Drawing.Size(71, 16);
             this.rdo相机模式.TabIndex = 41;
@@ -95,7 +97,7 @@
             // lab关联图片数量
             // 
             this.lab关联图片数量.AutoSize = true;
-            this.lab关联图片数量.Location = new System.Drawing.Point(623, 309);
+            this.lab关联图片数量.Location = new System.Drawing.Point(623, 375);
             this.lab关联图片数量.Name = "lab关联图片数量";
             this.lab关联图片数量.Size = new System.Drawing.Size(77, 12);
             this.lab关联图片数量.TabIndex = 40;
@@ -103,7 +105,7 @@
             // 
             // btn添加本地图片关联相机
             // 
-            this.btn添加本地图片关联相机.Location = new System.Drawing.Point(728, 177);
+            this.btn添加本地图片关联相机.Location = new System.Drawing.Point(728, 243);
             this.btn添加本地图片关联相机.Name = "btn添加本地图片关联相机";
             this.btn添加本地图片关联相机.Size = new System.Drawing.Size(153, 45);
             this.btn添加本地图片关联相机.TabIndex = 39;
@@ -113,7 +115,7 @@
             // 
             // btn获取图片
             // 
-            this.btn获取图片.Location = new System.Drawing.Point(620, 416);
+            this.btn获取图片.Location = new System.Drawing.Point(620, 482);
             this.btn获取图片.Name = "btn获取图片";
             this.btn获取图片.Size = new System.Drawing.Size(138, 45);
             this.btn获取图片.TabIndex = 38;
@@ -140,6 +142,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pictureBox1.Location = new System.Drawing.Point(34, 29);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(523, 560);

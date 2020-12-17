@@ -45,6 +45,13 @@ namespace FFAlarm.界面
             }
         }
 
+        public void StopRun()
+        {
+            MyRun.StopRun();
+            btn开始.Text = "暂停中";
+            btn开始.BaseColor = Color.FromArgb(224, 64, 10);
+        }
+
         private void btn测试_Click(object sender, EventArgs e)
         {
             MyRun.PrepareModel(cmbModeName.Text);
@@ -54,7 +61,7 @@ namespace FFAlarm.界面
         private void 检测运行界面_Load(object sender, EventArgs e)
         {
             cmbModeName.DataSource = MyRun.GetModeNameList();
-            图像显示控件1.ConnectCam = "122";
+            //图像显示控件1.ConnectCam = null;
             MyRun.ResultMsg += MyRun_ResultMsg;
         }
 
@@ -69,7 +76,7 @@ namespace FFAlarm.界面
 
         private void cmbModeName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            MyRun.modelName = cmbModeName.Text;
         }
 
         private void 检测运行界面_Enter(object sender, EventArgs e)

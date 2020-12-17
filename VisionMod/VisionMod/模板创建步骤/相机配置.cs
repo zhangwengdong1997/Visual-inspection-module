@@ -24,15 +24,16 @@ namespace LS_VisionMod.模板创建步骤
         /// 循环遍历本地关联图片使用
         /// </summary>
         int count = 0;
+        HalconFun halconFun = new HalconFun();
         public 相机配置(ref Model model)
         {
             InitializeComponent();
             this.model = model;
             this.Dock = DockStyle.Fill;
         }
-        public void Save()
+        public void Add()
         {
-            var cam = model.cams.Find(x => x.CamName == model.nowCam);
+            var cam = model.cams.Find(x => x.name == camName);
             if(cam == null)
             {
                 model.cams.Add(new Cam(camName, exposureTime));
@@ -41,35 +42,50 @@ namespace LS_VisionMod.模板创建步骤
             {
                 cam.ExposureTime = exposureTime;
             }
-            model.nowCam = camName;
-            model.camNum++;
+            model.nowCam.name = camName;
             model.nowStep++;
         }
+
+        public void Revise()
+        {
+            var cam = model.cams.Find(x => x.name == camName);
+            if (cam == null)
+            {
+                model.cams.Add(new Cam(camName, exposureTime));
+            }
+            else
+            {
+                cam.ExposureTime = exposureTime;
+            }
+            model.nowTestItem.CamName = camName;
+        }
+
         private void 相机配置_Load(object sender, EventArgs e)
         {
             //获取连接的相机名，供选择
             cmb相机列表.DataSource = MyRun.GetCameraList();
-            if(MyRun.GetCameraList().Count == 0)
+            
+            if (MyRun.GetCameraList().Count == 0)
             {
                 camName = "noCam";
                 localImagePath = MyRun.appPath + "\\model\\" + model.modelName + "\\noCam";
                 Directory.CreateDirectory(localImagePath);
                 ImagesPath = FileOperation.GetImagesPath(localImagePath);
                 lab关联图片数量.Text = ImagesPath.Length.ToString();
+                lab选择相机提示.Text = "无相机连接";
             }
-            //拍照事件
-            MyRun.SoftwareOnceEvent += MyRun_SoftwareOnceEvent;
-
-
+            else
+            {
+                lab选择相机提示.Text = "";
+            }
+           
         }
         
 
         private void MyRun_SoftwareOnceEvent(object sender, TriggerIamge e)
         {
-            HalconFun.ShowImage(e.ho_Image);
+            halconFun.ShowImage(e.ho_Image);
         }
-
-        
 
         private void cmb相机列表_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -92,8 +108,8 @@ namespace LS_VisionMod.模板创建步骤
             //设置相机曝光值
             if (float.TryParse(txt相机曝光值.Text, out exposureTime))
             {
-                float lower = MyRun.GetCamExposureTimeLower(camName);
-                float upper = MyRun.GetCamExposureTimeUpper(camName);
+                float lower, upper;
+                (lower, upper) = MyRun.GetCamExposureTimeLimit(camName);
                 if (exposureTime < lower || exposureTime > upper)
                 {
                     lab相机曝光值提示.Text = string.Format("相机曝光值范围{0}至{1}", lower, upper);
@@ -133,7 +149,7 @@ namespace LS_VisionMod.模板创建步骤
 
         private void btn添加当前图片关联相机_Click(object sender, EventArgs e)
         {
-            HalconFun.WriteImage(localImagePath, DateTime.Now.ToString("HH-mm-ss") + ".jpg");
+            halconFun.WriteImage(localImagePath, DateTime.Now.ToString("HH-mm-ss") + ".jpg");
             ImagesPath = FileOperation.GetImagesPath(localImagePath);
             lab关联图片数量.Text = ImagesPath.Length.ToString();
         }
@@ -147,8 +163,8 @@ namespace LS_VisionMod.模板创建步骤
             else if (rdo本地模式.Checked && ImagesPath.Length != 0)
             {
                 string ImagePath = ImagesPath[count++];
-                HalconFun.ReadImage(ImagePath);
-                HalconFun.ShowImage();
+                halconFun.ReadImage(ImagePath);
+                halconFun.ShowImage();
                 
                 count %= ImagesPath.Length;
             }
@@ -156,17 +172,21 @@ namespace LS_VisionMod.模板创建步骤
 
         private void 相机配置_Enter(object sender, EventArgs e)
         {
+            //拍照事件
+            MyRun.SoftwareOnceEvent += MyRun_SoftwareOnceEvent;
             //关联Halcon窗口
-            HalconFun.SetWindowHandle(pictureBox1);
+            halconFun.SetWindowHandle(pictureBox1);
             //显示上一步的图片
-            HalconFun.ShowImage();
+            halconFun.ShowImage();
 
         }
 
         private void 相机配置_Leave(object sender, EventArgs e)
         {
+            //拍照事件
+            MyRun.SoftwareOnceEvent -= MyRun_SoftwareOnceEvent;
             //关闭Halcon窗口
-            HalconFun.ColseWindow();
+            halconFun.ColseWindow();
         }
 
     }

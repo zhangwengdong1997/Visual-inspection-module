@@ -14,7 +14,6 @@ namespace LS_VisionMod.界面
     public partial class 图像显示控件 : UserControl
     {
         string connectCam;
-        
         public 图像显示控件()
         {
             InitializeComponent();
@@ -25,7 +24,7 @@ namespace LS_VisionMod.界面
 
         private void VisinoMod_DetectionOnceEvent(object sender, DetectionResult e)
         {
-            if (e.camName == connectCam)
+            if (connectCam == null || e.camName == connectCam)
             {
                 this.Invoke(new Action(() => {
                     HalconFun.ShowImage(e.ho_resultImage, hWindowControl1.HalconWindow);
@@ -39,7 +38,7 @@ namespace LS_VisionMod.界面
 
         private void MyRun_SoftwareOnceEvent(object sender, TriggerIamge e)
         {
-            if(e.camName == connectCam)
+            if(connectCam == null || e.camName == connectCam)
             {
                 this.Invoke(new Action(() =>HalconFun.ShowImage(e.ho_Image, hWindowControl1.HalconWindow)));
             }

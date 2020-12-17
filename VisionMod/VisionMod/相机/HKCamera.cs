@@ -27,14 +27,16 @@ namespace LS_VisionMod
         private Dictionary<int, MyCamera> m_dicMyCamera = new Dictionary<int, MyCamera>();
         private Dictionary<int, MyCamera.MV_CC_DEVICE_INFO> m_pDeviceInfo = new Dictionary<int, MyCamera.MV_CC_DEVICE_INFO>();
         private bool m_bGrabbing = false;
-
+        public bool IsTriggerMode = true;
+        public bool IsContinuesMode = false;
+        
         private Dictionary<int, MyCamera.MV_FRAME_OUT_INFO_EX> m_stFrameInfo = new Dictionary<int, MyCamera.MV_FRAME_OUT_INFO_EX>();
         public MyCamera DicMyCamera(string sUserDefineName)
         {
             var keys = m_listUserDefinedName.Where(q => q.Value == sUserDefineName).Select(q => q.Key).ToList<int>();
             if (keys.Count != 1)
             {
-                strErrorMsg = "相机" + sUserDefineName + "未连接";
+                StrErrorMsg = "相机" + sUserDefineName + "未连接";
                 return null;
             }
             int nIndex = keys[0];
@@ -49,12 +51,22 @@ namespace LS_VisionMod
             public Object Lock = new object();
         }
         private Dictionary<int, SaveImage> m_dicSaveImge = new Dictionary<int, SaveImage>();
-
-        public string strErrorMsg
+        private Dictionary<int, EventWaitHandle> m_dicImageCallBackSignal = new Dictionary<int, EventWaitHandle>();
+        private string strErrorMsg = "";
+        public string StrErrorMsg
         {
-            get; private set;
-        } = "";
+            get
+            {
+                return strErrorMsg;
+            }
+            private set 
+            {
+                strErrorMsg = value;
+                CamErrorEvent?.Invoke(this, value);
+            }
+        }
 
+        public event EventHandler<string> CamErrorEvent;
         public HKCamera()
         {
             DeviceListAcq();
@@ -91,7 +103,7 @@ namespace LS_VisionMod
             int nRet = MyCamera.MV_CC_EnumDevices_NET(MyCamera.MV_GIGE_DEVICE, ref m_stDeviceList);
             if (0 != nRet)
             {
-                strErrorMsg = "枚举设备失败！";
+                StrErrorMsg = "枚举设备失败！";
                 return;
             }
 
@@ -109,7 +121,7 @@ namespace LS_VisionMod
                     }
                     else
                     {
-                        strErrorMsg = "没有给相机命名！" + "GigE: " + gigeInfo.chManufacturerName + " " + gigeInfo.chModelName + " (" + gigeInfo.chSerialNumber + ")";
+                        StrErrorMsg = "没有给相机命名！" + "GigE: " + gigeInfo.chManufacturerName + " " + gigeInfo.chModelName + " (" + gigeInfo.chSerialNumber + ")";
                     }
                 }
             }
@@ -119,7 +131,7 @@ namespace LS_VisionMod
         {
             if (m_stDeviceList.nDeviceNum == 0)
             {
-                strErrorMsg = "无相机设备";
+                StrErrorMsg = "无相机设备";
                 return;
             }
             cbImage = new MyCamera.cbOutputExdelegate(ImageCallBack);
@@ -136,21 +148,38 @@ namespace LS_VisionMod
                 m_dicMyCamera[nIndex] = new MyCamera();
                 if (m_dicMyCamera[nIndex] == null)
                 {
-                    strErrorMsg = "相机" + UserDefinedName + "对象创建失败";
+                    StrErrorMsg = "相机" + UserDefinedName + "对象创建失败";
                     m_dicMyCamera.Remove(nIndex);
                     continue;
                 }
                 int nRet = m_dicMyCamera[nIndex].MV_CC_CreateDevice_NET(ref device);
+
                 if (MyCamera.MV_OK != nRet)
                 {
-                    strErrorMsg = "相机" + UserDefinedName + "创建设备失败";
+                    StrErrorMsg = "相机" + UserDefinedName + "创建设备失败";
                     m_dicMyCamera.Remove(nIndex);
                     continue;
                 }
-                nRet = m_dicMyCamera[nIndex].MV_CC_OpenDevice_NET();
+
+                
+
+                for(int i = 0; i < 5; i++)
+                {
+                    nRet = m_dicMyCamera[nIndex].MV_CC_OpenDevice_NET();
+                    if (MyCamera.MV_OK != nRet)
+                    {
+                        StrErrorMsg = "相机" + UserDefinedName + "打开设备失败，正在尝试重连";
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        break;
+                    }  
+                }
+
                 if (MyCamera.MV_OK != nRet)
                 {
-                    strErrorMsg = "相机" + UserDefinedName + "打开设备失败(" + nRet.ToString("X") + ")";
+                    StrErrorMsg = "相机" + UserDefinedName + "打开设备失败(" + nRet.ToString("X") + ")";
                     m_dicMyCamera.Remove(nIndex);
                     continue;
                 }
@@ -164,27 +193,49 @@ namespace LS_VisionMod
                         nRet = m_dicMyCamera[nIndex].MV_CC_SetIntValue_NET("GevSCPSPacketSize", (uint)nPacketSize);
                         if (nRet != MyCamera.MV_OK)
                         {
-                            strErrorMsg = "相机" + UserDefinedName + "设置数据包大小失败(" + nRet.ToString("X") + ")";
+                            StrErrorMsg = "相机" + UserDefinedName + "设置数据包大小失败(" + nRet.ToString("X") + ")";
                         }
                     }
                     else
                     {
-                        strErrorMsg = "相机" + UserDefinedName + "设置数据包大小失败(" + nRet.ToString("X") + ")";
+                        StrErrorMsg = "相机" + UserDefinedName + "设置数据包大小失败(" + nRet.ToString("X") + ")";
                     }
                     //打开软触发模式
-
-                    //m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_ON);
-                    //m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerSource", (uint)MyCamera.MV_CAM_TRIGGER_SOURCE.MV_TRIGGER_SOURCE_SOFTWARE);
-                    m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
+                    m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_ON);
+                    m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerSource", (uint)MyCamera.MV_CAM_TRIGGER_SOURCE.MV_TRIGGER_SOURCE_SOFTWARE);
+                    ////打开实时模式
+                    //m_dicMyCamera[nIndex].MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
 
                     m_stFrameInfo[nIndex] = new MyCamera.MV_FRAME_OUT_INFO_EX();
                     m_dicSaveImge[nIndex] = new SaveImage();
-                    
+                    m_dicImageCallBackSignal[nIndex] = new EventWaitHandle(false, EventResetMode.AutoReset);
                     m_dicMyCamera[nIndex].MV_CC_RegisterImageCallBackEx_NET(cbImage, (IntPtr)nIndex);
                 }
             }
 
         }
+
+        public void ContinuesMode()
+        {
+            foreach (var item in m_dicMyCamera.Values)
+            {
+                item.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
+            }
+            IsContinuesMode = true;
+            IsTriggerMode = false;
+        }
+
+        public void TriggerMode()
+        {
+            foreach (var item in m_dicMyCamera.Values)
+            {
+                item.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_ON);
+                item.MV_CC_SetEnumValue_NET("TriggerSource", (uint)MyCamera.MV_CAM_TRIGGER_SOURCE.MV_TRIGGER_SOURCE_SOFTWARE);
+            }
+            IsContinuesMode = false;
+            IsTriggerMode = true;
+        }
+
         private void StartGrab()
         {
             int nRet;
@@ -197,7 +248,7 @@ namespace LS_VisionMod
                 nRet = pMyCamera.Value.MV_CC_StartGrabbing_NET();
                 if (MyCamera.MV_OK != nRet)
                 {
-                    strErrorMsg = "相机" + m_listUserDefinedName[pMyCamera.Key] + "开始抓图失败(" + nRet.ToString("X") + ")";
+                    StrErrorMsg = "相机" + m_listUserDefinedName[pMyCamera.Key] + "开始抓图失败(" + nRet.ToString("X") + ")";
                     return;
                 }
             }
@@ -222,13 +273,17 @@ namespace LS_VisionMod
                     m_dicSaveImge[nIndex].Buf = Marshal.AllocHGlobal((Int32)pFrameInfo.nFrameLen);
                     if (m_dicSaveImge[nIndex].Buf == IntPtr.Zero)
                     {
-                        strErrorMsg = "缓存图片分配内存失败";
+                        StrErrorMsg = "缓存图片分配内存失败";
                         return;
                     }
                     m_dicSaveImge[nIndex].Size = pFrameInfo.nFrameLen;
                 }
                 m_stFrameInfo[nIndex] = pFrameInfo;
                 CopyMemory(m_dicSaveImge[nIndex].Buf, pData, pFrameInfo.nFrameLen);
+                if (IsTriggerMode)
+                {
+                    m_dicImageCallBackSignal[nIndex].Set();
+                }
             }
         }
 
@@ -238,7 +293,7 @@ namespace LS_VisionMod
             var keys = m_listUserDefinedName.Where(q => q.Value == sUserDefineName).Select(q => q.Key).ToList<int>();  //get all keys
             if (keys.Count != 1)
             {
-                strErrorMsg = "相机" + sUserDefineName + "未连接";
+                StrErrorMsg = "相机" + sUserDefineName + "未连接";
                 return;
             }
             int nIndex = keys[0];
@@ -246,7 +301,7 @@ namespace LS_VisionMod
             nRet = m_dicMyCamera[nIndex].MV_CC_SetCommandValue_NET("TriggerSoftware");
             if (MyCamera.MV_OK != nRet)
             {
-                strErrorMsg = "相机" + sUserDefineName + "软触发失败(" + nRet.ToString("X") + ")";
+                StrErrorMsg = "相机" + sUserDefineName + "软触发失败(" + nRet.ToString("X") + ")";
                 return;
             }
         }
@@ -258,18 +313,24 @@ namespace LS_VisionMod
             {
                 return 1;
             }
-
-            //DoSoftTriggerSpecify(sUserDefineName);
             
             int nRet;
             var keys = m_listUserDefinedName.Where(q => q.Value == sUserDefineName).Select(q => q.Key).ToList<int>();  //get all keys
             if (keys.Count != 1)
             {
-                strErrorMsg = "相机" + sUserDefineName + "未连接";
+                StrErrorMsg = "相机" + sUserDefineName + "未连接";
                 
                 return 1;
             }
             int nIndex = keys[0];
+
+
+            if (IsTriggerMode)
+            {
+                DoSoftTriggerSpecify(sUserDefineName);
+                m_dicImageCallBackSignal[nIndex].WaitOne();
+            }
+
             IntPtr pImageBuf = IntPtr.Zero;
             int nImageBufSize = 0;
             IntPtr pTemp = IntPtr.Zero;

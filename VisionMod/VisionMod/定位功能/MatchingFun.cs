@@ -30,11 +30,24 @@ namespace LS_VisionMod
         /// </summary>
         public HObject InImage;
         /// <summary>
+        /// 完整产品的区域
+        /// </summary>
+        public HObject CompleteRegion;
+        /// <summary>
+        /// 是否检测完整性
+        /// </summary>
+        public bool completionTest { get; set; }
+        /// <summary>
+        /// 使用的模板
+        /// </summary>
+        public Matching matching { get; set; }
+        /// <summary>
         /// 创建定位模板
         /// </summary>
         /// <param name="inImage"></param>
         /// <param name="inRegion"></param>
         public abstract void Create(HObject inImage, HObject inRegion);
+
         /// <summary>
         /// 匹配定位模板，矫正图片位置
         /// </summary>
@@ -56,7 +69,7 @@ namespace LS_VisionMod
         /// 读取定位模板
         /// </summary>
         /// <param name="sFolderPath"></param>
-        /// <param name="mathingName"></param>
-        public abstract void Read(string sFolderPath, string mathingName);
+        /// <param name="mathing"></param>
+        public abstract void Read(string sFolderPath, Matching mathing);
     }
 }

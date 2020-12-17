@@ -25,13 +25,9 @@ namespace LS_VisionMod
         /// </summary>
         public List<Cam> cams { get; set; }
         /// <summary>
-        /// 相机数量
-        /// </summary>
-        public int camNum { get; set; }
-        /// <summary>
         /// 当前操作的相机
         /// </summary>
-        public string nowCam { get; set; }
+        public Cam nowCam { get; set; }
         /// <summary>
         /// 预处理
         /// </summary>
@@ -61,10 +57,15 @@ namespace LS_VisionMod
         public Model()
         {
             cams = new List<Cam>();
+            nowCam = new Cam("无", -1);
             imagePreprocesses = new List<ImagePreprocess>();
+            nowImagePreprocess = new ImagePreprocess() { name = "无" };
             matchings = new List<Matching>();
+            nowMatching = new Matching("无", "无");
             testItems = new List<TestItem>();
+            nowTestItem = new TestItem() { name = "无", type = "无"};
             steps = new List<StepName>();
+
             nowStep = 0;
         }
     }
@@ -83,7 +84,7 @@ namespace LS_VisionMod
         /// <summary>
         /// 相机用户自定义名称UserDefinedName
         /// </summary>
-        public string CamName { get; set; }
+        public string name { get; set; }
         /// <summary>
         /// 曝光时间
         /// </summary>
@@ -91,7 +92,7 @@ namespace LS_VisionMod
 
         public Cam(string camName, float exposureTime)
         {
-            CamName = camName;
+            name = camName;
             ExposureTime = exposureTime;
         }
     }
@@ -151,6 +152,14 @@ namespace LS_VisionMod
         /// 定位模板的类型
         /// </summary>
         public string type { get; set; }
+        /// <summary>
+        /// 是否检测完整性
+        /// </summary>
+        public bool completionTest { get; set; } = false; 
+        /// <summary>
+        /// 对应的相机名
+        /// </summary>
+        public string camName { get; set; }
         public Matching(string name, string type)
         {
             this.name = name;
@@ -172,7 +181,7 @@ namespace LS_VisionMod
         /// <summary>
         /// 对应定位模板
         /// </summary>
-        public Matching Match { get; set; }
+        public string MatchName { get; set; }
         /// <summary>
         /// 检测项的类型
         /// </summary>

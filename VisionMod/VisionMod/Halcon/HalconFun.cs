@@ -12,20 +12,20 @@ namespace LS_VisionMod
 {
     class HalconFun
     {
-        public static HObject m_hoRegion;
-        public static HObject m_hoImage;
-        public static HTuple m_hvWindowHandle;
-        public static List<HObject> m_historyRegions;
+        public HObject m_hoRegion;
+        public HObject m_hoImage;
+        public HTuple m_hvWindowHandle;
+        public List<HObject> m_historyRegions;
 
-        public static void InitHistoryRegions()
+        public void InitHistoryRegions()
         {
             m_historyRegions = new List<HObject>();
         }
-        public static void AddHistoryRegions()
+        public void AddHistoryRegions()
         {
             m_historyRegions.Add(m_hoRegion);
         }
-        public static void BreakHistoryRegion()
+        public void BreakHistoryRegion()
         {
             if (m_historyRegions.Count > 0)
             {
@@ -39,12 +39,13 @@ namespace LS_VisionMod
                 m_hoRegion = null;
             }
         }
-        public static void SetWindowHandle(PictureBox pictureBox)
+        public void SetWindowHandle(PictureBox pictureBox)
         {
             HTuple FatherWindow = pictureBox.Handle;
             HOperatorSet.OpenWindow(0, 0, pictureBox.Width, pictureBox.Height, FatherWindow, "visible", "", out m_hvWindowHandle);
+            HSystem.SetSystem("clip_region", "false");
         }
-        public static void ColseWindow()
+        public void ColseWindow()
         {
             HOperatorSet.CloseWindow(m_hvWindowHandle);
         }
@@ -62,21 +63,21 @@ namespace LS_VisionMod
             return new Bitmap(width / 4, height, width, PixelFormat.Format24bppRgb, ptr); ;
         }
 
-        public static void WriteImage(string path, string fileName)
+        public void WriteImage(string path, string fileName)
         {
-            if(m_hoImage != null)
+            if (m_hoImage != null)
             {
                 HOperatorSet.WriteImage(m_hoImage, "jpg", 0, path + "\\" + fileName);
             }
-            
+
         }
 
-        public static void ReadImage(string path)
+        public void ReadImage(string path)
         {
             HObjectEmpty(ref m_hoImage);
             HOperatorSet.ReadImage(out m_hoImage, path);
         }
-        public static void ShowImage()
+        public void ShowImage()
         {
             if (m_hoImage == null)
             {
@@ -87,7 +88,7 @@ namespace LS_VisionMod
             HOperatorSet.SetPart(m_hvWindowHandle, 0, 0, Height - 1, Width - 1);
             HOperatorSet.DispObj(m_hoImage, m_hvWindowHandle);
         }
-        public static void ShowImage(HObject ho_Image)
+        public void ShowImage(HObject ho_Image)
         {
             HObjectEmpty(ref m_hoImage);
             HOperatorSet.CopyImage(ho_Image, out m_hoImage);
@@ -98,8 +99,6 @@ namespace LS_VisionMod
             HOperatorSet.GetImagePointer1(ho_Image, out _, out _, out HTuple Width, out HTuple Height);
             HOperatorSet.SetPart(hvWindowHandle, 0, 0, Height - 1, Width - 1);
             HOperatorSet.DispObj(ho_Image, hvWindowHandle);
-            ho_Image.Dispose();
-
         }
         public static void OpenWindow(PictureBox pictureBox, out HTuple hvWindowHandle)
         {
@@ -114,7 +113,7 @@ namespace LS_VisionMod
 
         public delegate void DrawRegionModel();
 
-        public static void DrawRegion(DrawRegionModel drawRegionModel, Operation operation)
+        public void DrawRegion(DrawRegionModel drawRegionModel, Operation operation)
         {
             HObject originalRegion = null;
             HObject resultRegion = null;
@@ -125,6 +124,10 @@ namespace LS_VisionMod
                     originalRegion = new HObject(m_hoRegion);
                     break;
                 case Operation.Add:
+                    if(m_hoRegion == null)
+                    {
+                        goto case Operation.New;
+                    }
                     originalRegion = new HObject(m_hoRegion);
                     drawRegionModel();
                     HOperatorSet.Union2(originalRegion, m_hoRegion, out resultRegion);
@@ -132,6 +135,10 @@ namespace LS_VisionMod
                     m_hoRegion = resultRegion;
                     break;
                 case Operation.Cut:
+                    if (m_hoRegion == null)
+                    {
+                        goto case Operation.New;
+                    }
                     originalRegion = new HObject(m_hoRegion);
                     drawRegionModel();
                     HOperatorSet.Difference(originalRegion, m_hoRegion, out resultRegion);
@@ -139,6 +146,10 @@ namespace LS_VisionMod
                     m_hoRegion = resultRegion;
                     break;
                 case Operation.Int:
+                    if (m_hoRegion == null)
+                    {
+                        goto case Operation.New;
+                    }
                     originalRegion = new HObject(m_hoRegion);
                     drawRegionModel();
                     HOperatorSet.Intersection(originalRegion, m_hoRegion, out resultRegion);
@@ -150,28 +161,28 @@ namespace LS_VisionMod
 
         }
 
-        public static void DrawRectangle1()
+        public void DrawRectangle1()
         {
             HOperatorSet.DrawRectangle1(m_hvWindowHandle, out HTuple hv_row1, out HTuple hv_column1, out HTuple hv_row2, out HTuple hv_column2);
             HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenRectangle1(out m_hoRegion, hv_row1, hv_column1, hv_row2, hv_column2);
         }
 
-        public static void DrawRectangle2()
+        public void DrawRectangle2()
         {
             HOperatorSet.DrawRectangle2(m_hvWindowHandle, out HTuple hv_row, out HTuple hv_column, out HTuple hv_phi, out HTuple hv_length1, out HTuple hv_length2);
             HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenRectangle2(out m_hoRegion, hv_row, hv_column, hv_phi, hv_length1, hv_length2);
         }
 
-        public static void DrawCircle()
+        public void DrawCircle()
         {
             HOperatorSet.DrawCircle(m_hvWindowHandle, out HTuple hv_row, out HTuple hv_column, out HTuple hv_radius);
             HObjectEmpty(ref m_hoRegion);
             HOperatorSet.GenCircle(out m_hoRegion, hv_row, hv_column, hv_radius);
         }
 
-        public static void DrawPolygon()
+        public void DrawPolygon()
         {
             HOperatorSet.DrawPolygon(out HObject ho_PolygonRegion, m_hvWindowHandle);
             HObjectEmpty(ref m_hoRegion);
@@ -200,6 +211,11 @@ namespace LS_VisionMod
 
         #endregion
 
+        public void DrawRectangle1(out HObject ho_region)
+        {
+            HOperatorSet.DrawRectangle1(m_hvWindowHandle, out HTuple hv_row1, out HTuple hv_column1, out HTuple hv_row2, out HTuple hv_column2);
+            HOperatorSet.GenRectangle1(out ho_region, hv_row1, hv_column1, hv_row2, hv_column2);
+        }
         private static void HObjectEmpty(ref HObject hObject)
         {
             if (hObject != null)
@@ -208,7 +224,7 @@ namespace LS_VisionMod
             }
         }
 
-        public static void HWindowRefresh(Color color, RegionFillMode fillMode)
+        public void HWindowRefresh(Color color, RegionFillMode fillMode)
         {
             HOperatorSet.ClearWindow(m_hvWindowHandle);
             SetRegionColor(color);
@@ -223,14 +239,14 @@ namespace LS_VisionMod
             Margin = 2
         }
 
-        public static void SetRegionColor(Color color)
+        public void SetRegionColor(Color color)
         {
             string argb = color.ToArgb().ToString("x");
             string rgba = argb.Substring(2) + argb.Substring(0, 2);
             string colorH = "#" + rgba;
             HOperatorSet.SetColor(m_hvWindowHandle, colorH);
         }
-        public static void SetRegionFillMode(RegionFillMode fillMode)
+        public void SetRegionFillMode(RegionFillMode fillMode)
         {
             switch (fillMode)
             {
@@ -242,7 +258,7 @@ namespace LS_VisionMod
                     break;
             }
         }
-        public static void ShowRegion()
+        public void ShowRegion()
         {
             if (m_hoRegion == null)
             {
@@ -250,13 +266,13 @@ namespace LS_VisionMod
             }
             HOperatorSet.DispObj(m_hoRegion, m_hvWindowHandle);
         }
-        public static void ShowRegion(Color color)
+        public void ShowRegion(Color color)
         {
 
             SetRegionColor(color);
             ShowRegion();
         }
-        public static void ShowRegion(HObject ho_Region, Color color)
+        public void ShowRegion(HObject ho_Region, Color color)
         {
             if (ho_Region == null)
             {

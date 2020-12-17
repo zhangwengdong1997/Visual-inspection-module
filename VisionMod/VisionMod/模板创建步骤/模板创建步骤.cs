@@ -8,8 +8,10 @@ namespace LS_VisionMod.模板创建步骤
 {
     interface I模板创建步骤
     {
-        void Save();
+        void Add();
 
-       
+        void Revise();
+
+
     }
 }

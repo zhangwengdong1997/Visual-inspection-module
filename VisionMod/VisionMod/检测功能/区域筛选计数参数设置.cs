@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HalconDotNet;
+using Newtonsoft.Json.Linq;
 
 namespace LS_VisionMod
 {
@@ -112,6 +113,7 @@ namespace LS_VisionMod
         {
             btn选择区域.Enabled = false;
             this.Focus();
+            HOperatorSet.SetColor(hWindow, "green");
             HOperatorSet.DrawRectangle2(hWindow, out HTuple hv_row, out HTuple hv_column,
                 out HTuple hv_phi, out HTuple hv_length1, out HTuple hv_length2);
             HOperatorSet.GenRectangle2(out hRegionIn, hv_row, hv_column, hv_phi, hv_length1, hv_length2);
@@ -148,19 +150,19 @@ namespace LS_VisionMod
             }
             if (hImage == null)
             {
-                MessageBox.Show("请先获取图片");
+                //MessageBox.Show("请先获取图片");
                 return;
             }
             if (hRegionIn == null)
             {
-                MessageBox.Show("请先选择感兴趣区域");
+                //MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
             ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out HTuple hv_area);
-            trbMinArea.Maximum = hv_area.I;
-            trbMaxArea.Maximum = hv_area.I;
-            nudMinArea.Maximum = hv_area.I;
-            nudMaxArea.Maximum = hv_area.I;
+            trbMinArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            trbMaxArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            nudMinArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            nudMaxArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
         }
 
         
@@ -174,19 +176,19 @@ namespace LS_VisionMod
             }
             if (hImage == null)
             {
-                MessageBox.Show("请先获取图片");
+                //MessageBox.Show("请先获取图片");
                 return;
             }
             if (hRegionIn == null)
             {
-                MessageBox.Show("请先选择感兴趣区域");
+                //MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
             ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out HTuple hv_area);
-            trbMinArea.Maximum = hv_area.I;
-            trbMaxArea.Maximum = hv_area.I;
-            nudMinArea.Maximum = hv_area.I;
-            nudMaxArea.Maximum = hv_area.I;
+            trbMinArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            trbMaxArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            nudMinArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
+            nudMaxArea.Maximum = (int)Math.Ceiling(hv_area.I * 1.5);
         }
         private void ShowThreshold(int min, int max, out HTuple hv_area)
         {
@@ -220,12 +222,12 @@ namespace LS_VisionMod
             }
             if (hImage == null)
             {
-                MessageBox.Show("请先获取图片");
+                //MessageBox.Show("请先获取图片");
                 return;
             }
             if (hRegionIn == null)
             {
-                MessageBox.Show("请先选择感兴趣区域");
+                //MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
             ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out HTuple hv_number);
@@ -243,12 +245,12 @@ namespace LS_VisionMod
             }
             if (hImage == null)
             {
-                MessageBox.Show("请先获取图片");
+                //MessageBox.Show("请先获取图片");
                 return;
             }
             if (hRegionIn == null)
             {
-                MessageBox.Show("请先选择感兴趣区域");
+                //MessageBox.Show("请先选择感兴趣区域");
                 return;
             }
             ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out HTuple hv_number);
@@ -295,15 +297,94 @@ namespace LS_VisionMod
                 MessageBox.Show("请先获取图片");
                 return;
             }
-            if (hRegionIn == null)
+            if (e.TabPage.Text != "感兴趣区域" && hRegionIn == null)
             {
-                MessageBox.Show("请先选择感兴趣区域");
-                return;
+                    MessageBox.Show("请先选择感兴趣区域");
+                    return;
+            }
+            
+            if (e.TabPage.Text == "感兴趣区域" && hRegionIn != null)
+            {
+                HOperatorSet.SetDraw(hWindow, "margin");
+                HOperatorSet.SetColor(hWindow, "red");
+                HOperatorSet.DispObj(hRegionIn, hWindow);
             }
             if (e.TabPage.Text.Equals("灰度"))
                 ShowThreshold(trbMinGray.Value, trbMaxGray.Value, out _);
+
             if (e.TabPage.Text.Equals("面积"))
+            {
+                if(hRegionGray == null)
+                {
+                    MessageBox.Show("请先选择灰度");
+                    return;
+                }
                 ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out _);
+            }
+            if (e.TabPage.Text.Equals("计数") && hRegionGray != null)
+            {
+                ShowSelectShape(trbMinArea.Value, trbMaxArea.Value, "area", out HTuple hv_number);
+                lab当前区域个数.Text = hv_number.I.ToString();
+            }
+
+        }
+
+        public void Create(TestItem testItem)
+        {
+            List<Parameter> inParameters = testItem.parameters;
+            float row, column, phi, length1, length2;           
+            int minGray, maxGray;           
+            int minArea, maxArea;
+            int num;
+
+            if(inParameters[0].value is JArray)
+            {
+                JArray region = inParameters[0].value as JArray;
+                row = (float)region[0];
+                column = (float)region[1];
+                phi = (float)region[2];
+                length1 = (float)region[3];
+                length2 = (float)region[4];
+                JArray Gray = inParameters[1].value as JArray;
+                minGray = (int)Gray[0];
+                maxGray = (int)Gray[1];
+                JArray Area = inParameters[2].value as JArray;
+                minArea = (int)Area[0];
+                maxArea = (int)Area[1];
+                num = int.Parse(inParameters[3].value.ToString());
+            }
+            else
+            {
+                row = (inParameters[0].value as float[])[0];
+                column = (inParameters[0].value as float[])[1];
+                phi = (inParameters[0].value as float[])[2];
+                length1 = (inParameters[0].value as float[])[3];
+                length2 = (inParameters[0].value as float[])[4];
+                minGray = (inParameters[1].value as int[])[0];
+                maxGray = (inParameters[1].value as int[])[1];
+                minArea = (inParameters[2].value as int[])[0];
+                maxArea = (inParameters[2].value as int[])[1];
+                num = (int)inParameters[3].value;
+            }
+            HOperatorSet.GenRectangle2(out hRegionIn, row, column, phi, length1, length2);
+
+            txtRow.Text = row.ToString();
+            txtColumn.Text = column.ToString();
+            txtPhi.Text = phi.ToString();
+            txtLength1.Text = length1.ToString();
+            txtLength2.Text = length2.ToString();
+
+            nudMinGray.Value = minGray;
+            nudMaxGray.Value = maxGray;
+            trbMinArea.Maximum = (int)Math.Ceiling(maxArea * 1.5);
+            trbMaxArea.Maximum = (int)Math.Ceiling(maxArea * 1.5);
+            nudMinArea.Maximum = (int)Math.Ceiling(maxArea * 1.5);
+            nudMaxArea.Maximum = (int)Math.Ceiling(maxArea * 1.5);
+          
+            nudMinArea.Value = minArea;
+            nudMaxArea.Value = maxArea;
+            nud期望区域个数.Value = num;
+
         }
     }
 }

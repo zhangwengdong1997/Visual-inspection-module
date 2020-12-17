@@ -11,9 +11,9 @@ namespace LS_VisionMod
     {
         public string camName;
         public ImagePreprocess imagePreprocess;
-        public Matching matching;
+        public string matchName;
         public string outMessage;
-
+        public bool hav = false;
         public abstract void Create(List<Parameter> inParameters);
         public abstract int Find(HObject inImage);
 

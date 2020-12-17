@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lab本地图片数量 = new System.Windows.Forms.Label();
-            this.lab当前相机 = new System.Windows.Forms.Label();
             this.rdo本地模式 = new System.Windows.Forms.RadioButton();
             this.rdo相机模式 = new System.Windows.Forms.RadioButton();
             this.btn获取图片 = new System.Windows.Forms.Button();
@@ -42,6 +41,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmb选择检测项 = new System.Windows.Forms.ComboBox();
+            this.lab当前相机 = new System.Windows.Forms.Label();
+            this.btn保存 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,15 +55,6 @@
             this.lab本地图片数量.TabIndex = 64;
             this.lab本地图片数量.Text = "本地图片数量";
             // 
-            // lab当前相机
-            // 
-            this.lab当前相机.AutoSize = true;
-            this.lab当前相机.Location = new System.Drawing.Point(622, 439);
-            this.lab当前相机.Name = "lab当前相机";
-            this.lab当前相机.Size = new System.Drawing.Size(53, 12);
-            this.lab当前相机.TabIndex = 63;
-            this.lab当前相机.Text = "当前相机";
-            // 
             // rdo本地模式
             // 
             this.rdo本地模式.AutoSize = true;
@@ -70,13 +62,13 @@
             this.rdo本地模式.Name = "rdo本地模式";
             this.rdo本地模式.Size = new System.Drawing.Size(71, 16);
             this.rdo本地模式.TabIndex = 62;
-            this.rdo本地模式.TabStop = true;
             this.rdo本地模式.Text = "本地模式";
             this.rdo本地模式.UseVisualStyleBackColor = true;
             // 
             // rdo相机模式
             // 
             this.rdo相机模式.AutoSize = true;
+            this.rdo相机模式.Checked = true;
             this.rdo相机模式.Location = new System.Drawing.Point(692, 472);
             this.rdo相机模式.Name = "rdo相机模式";
             this.rdo相机模式.Size = new System.Drawing.Size(71, 16);
@@ -148,9 +140,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(32, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(32, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(501, 463);
+            this.pictureBox1.Size = new System.Drawing.Size(501, 460);
             this.pictureBox1.TabIndex = 53;
             this.pictureBox1.TabStop = false;
             // 
@@ -172,10 +164,30 @@
             this.cmb选择检测项.TabIndex = 51;
             this.cmb选择检测项.SelectedIndexChanged += new System.EventHandler(this.cmb选择检测项_SelectedIndexChanged);
             // 
+            // lab当前相机
+            // 
+            this.lab当前相机.AutoSize = true;
+            this.lab当前相机.Location = new System.Drawing.Point(622, 439);
+            this.lab当前相机.Name = "lab当前相机";
+            this.lab当前相机.Size = new System.Drawing.Size(53, 12);
+            this.lab当前相机.TabIndex = 63;
+            this.lab当前相机.Text = "当前相机";
+            // 
+            // btn保存
+            // 
+            this.btn保存.Location = new System.Drawing.Point(757, 573);
+            this.btn保存.Name = "btn保存";
+            this.btn保存.Size = new System.Drawing.Size(141, 40);
+            this.btn保存.TabIndex = 65;
+            this.btn保存.Text = "保存";
+            this.btn保存.UseVisualStyleBackColor = true;
+            this.btn保存.Click += new System.EventHandler(this.btn保存_Click);
+            // 
             // 检测项添加
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn保存);
             this.Controls.Add(this.lab本地图片数量);
             this.Controls.Add(this.lab当前相机);
             this.Controls.Add(this.rdo本地模式);
@@ -204,7 +216,6 @@
         #endregion
 
         private System.Windows.Forms.Label lab本地图片数量;
-        private System.Windows.Forms.Label lab当前相机;
         private System.Windows.Forms.RadioButton rdo本地模式;
         private System.Windows.Forms.RadioButton rdo相机模式;
         private System.Windows.Forms.Button btn获取图片;
@@ -217,5 +228,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmb选择检测项;
+        private System.Windows.Forms.Label lab当前相机;
+        private System.Windows.Forms.Button btn保存;
     }
 }

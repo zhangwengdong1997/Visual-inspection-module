@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn上一步 = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.btn下一步 = new System.Windows.Forms.Button();
             this.cmb当前检测项 = new System.Windows.Forms.ComboBox();
             this.cmb当前图像预处理 = new System.Windows.Forms.ComboBox();
             this.lab当前型号 = new System.Windows.Forms.Label();
@@ -42,17 +40,9 @@
             this.cmb当前相机 = new System.Windows.Forms.ComboBox();
             this.lab当前检测项 = new System.Windows.Forms.Label();
             this.palNow = new System.Windows.Forms.Panel();
+            this.btn保存修改 = new System.Windows.Forms.Button();
             this.palNow.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btn上一步
-            // 
-            this.btn上一步.Location = new System.Drawing.Point(683, 686);
-            this.btn上一步.Name = "btn上一步";
-            this.btn上一步.Size = new System.Drawing.Size(115, 37);
-            this.btn上一步.TabIndex = 31;
-            this.btn上一步.Text = "上一步";
-            this.btn上一步.UseVisualStyleBackColor = true;
             // 
             // panelMain
             // 
@@ -62,16 +52,6 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(993, 634);
             this.panelMain.TabIndex = 30;
-            // 
-            // btn下一步
-            // 
-            this.btn下一步.Location = new System.Drawing.Point(849, 686);
-            this.btn下一步.Name = "btn下一步";
-            this.btn下一步.Size = new System.Drawing.Size(115, 37);
-            this.btn下一步.TabIndex = 29;
-            this.btn下一步.Text = "下一步";
-            this.btn下一步.UseVisualStyleBackColor = true;
-            this.btn下一步.Click += new System.EventHandler(this.btn下一步_Click);
             // 
             // cmb当前检测项
             // 
@@ -174,16 +154,24 @@
             this.palNow.Name = "palNow";
             this.palNow.Size = new System.Drawing.Size(1003, 35);
             this.palNow.TabIndex = 32;
-            this.palNow.Visible = false;
+            // 
+            // btn保存修改
+            // 
+            this.btn保存修改.Location = new System.Drawing.Point(820, 686);
+            this.btn保存修改.Name = "btn保存修改";
+            this.btn保存修改.Size = new System.Drawing.Size(115, 37);
+            this.btn保存修改.TabIndex = 33;
+            this.btn保存修改.Text = "保存修改";
+            this.btn保存修改.UseVisualStyleBackColor = true;
+            this.btn保存修改.Click += new System.EventHandler(this.btn保存修改_Click);
             // 
             // 编辑模板窗口
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.btn上一步);
+            this.Controls.Add(this.btn保存修改);
             this.Controls.Add(this.panelMain);
-            this.Controls.Add(this.btn下一步);
             this.Controls.Add(this.palNow);
             this.Name = "编辑模板窗口";
             this.Text = "编辑模板窗口";
@@ -196,10 +184,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn上一步;
         private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.Button btn下一步;
         private System.Windows.Forms.ComboBox cmb当前检测项;
         private System.Windows.Forms.ComboBox cmb当前图像预处理;
         private System.Windows.Forms.Label lab当前型号;
@@ -211,5 +196,6 @@
         private System.Windows.Forms.ComboBox cmb当前相机;
         private System.Windows.Forms.Label lab当前检测项;
         private System.Windows.Forms.Panel palNow;
+        private System.Windows.Forms.Button btn保存修改;
     }
 }

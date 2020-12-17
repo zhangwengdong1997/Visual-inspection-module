@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FFAlarm
 {
@@ -26,7 +27,7 @@ namespace FFAlarm
         /// <summary>
         /// 运行状态 -1：未初始化，0：暂停，1：运行
         /// </summary>
-        static int nState = -1;
+        public static int nState { get; private set; } = -1;
 
         public static event EventHandler<string> ResultMsg;
 
@@ -38,7 +39,7 @@ namespace FFAlarm
         public delegate void OnConnectState(int nId, string state);
         public static event OnConnectState ConnectState;
 
-        
+        public static string modelName;
 
         public static void Init()
         {
@@ -69,9 +70,17 @@ namespace FFAlarm
             myPlc.RecvData += MyPlc_RecvData;
 
             //连接视觉模块
-            VisinoMod.Connect();
-            VisinoMod.DetectionOnceEvent += VisinoMod_DetectionOnceEvent;
+            if (VisinoMod.Connect())
+            {
+                ConnectState?.Invoke(3, "相机连接成功");
+            }
+            else
+            {
+                ConnectState?.Invoke(4, "相机连接失败");
 
+            }
+
+            VisinoMod.DetectionOnceEvent += VisinoMod_DetectionOnceEvent;
             runThread = new Thread(WorkFun)
             {
                 IsBackground = true
@@ -82,7 +91,7 @@ namespace FFAlarm
         static HashSet<string> item = new HashSet<string>();
         private static void VisinoMod_DetectionOnceEvent(object sender, DetectionResult e)
         {
-            if(item.Count == 0)
+            if (item.Count == 0)
             {
                 ResultMsg.Invoke(null, null);
             }
@@ -90,7 +99,8 @@ namespace FFAlarm
             ResultMsg.Invoke(null, "\r\n[" + result[0] + "]: " + result[1] + "\r\n");
             if (result[1].Equals("NG"))
             {
-                TreatNG();
+                TreatNG(e.ho_outImage.CopyObj(1, -1));
+                item.Add(result[0]);
             }
             if (result[1].Equals("OK"))
             {
@@ -98,8 +108,8 @@ namespace FFAlarm
             }
             if(item.Count == VisinoMod.TestItemNumber())
             {
-                TreatOK();
-                item.Clear();             
+                TreatOK(e.ho_outImage.CopyObj(1, -1));
+                item.Clear();
             }
         }
 
@@ -113,6 +123,12 @@ namespace FFAlarm
             string IN= Settings.Default.CheckIN;
             if (e.Equals(myPlc.InNum[IN]))
             {
+                DateTime time = DateTime.Now;
+                //VisinoMod.PrepareModel(modelName);
+                while(DateTime.Now.Subtract(time).TotalMilliseconds < Settings.Default.Delay)
+                {
+                    Thread.Sleep(20);
+                }
                 CheckSignal.Set();
             }
         }
@@ -123,14 +139,16 @@ namespace FFAlarm
             while (true)
             {
                 if (DateTime.Now - t >= new TimeSpan(1, 0, 0, 0))
-                {
-                    t = DateTime.Now;
+                {        
                     //删除图片
-                    ClearImage("OK", Settings.Default.OKSaveTime);
-                    ClearImage("NG", Settings.Default.NGSaveTime);
+                    ClearImage(Application.StartupPath + "\\OK", Settings.Default.OKSaveTime);
+                    ClearImage(Application.StartupPath + "\\NG", Settings.Default.NGSaveTime);
 
                 }
-                VisinoMod.TriggerCamera();
+                if(nState == 1)
+                {
+                    //VisinoMod.TriggerCamera();
+                }
                 if (CheckSignal.WaitOne(100) == false)
                     continue;
                 if (nState != 1)
@@ -141,6 +159,7 @@ namespace FFAlarm
                 Test();
                 CheckSignal.Reset();
             }
+            throw new Exception();
         }
         public static void StopRun()
         {
@@ -159,8 +178,10 @@ namespace FFAlarm
         }
         public static void Test() 
         {
-            //VisinoMod.TriggerCamera();
-            VisinoMod.TriggerDetection();
+            item.Clear();
+            VisinoMod.stopDetectionSignal.Set();
+            VisinoMod.TriggerDetection2();
+
         }
         public static void PrepareModel(string modelName)
         {
@@ -171,19 +192,24 @@ namespace FFAlarm
             byte[] Data = { 0x8F, message, 0x7f };
             myPlc.AddMsg(Data);
         }
-        private static void TreatNG()
+        private static void TreatNG(object image)
         {
             new Thread(() =>
             {
                 string OUT = Settings.Default.NGOut;
-                WritePLC(myPlc.OutNum[OUT]);
                 Thread.Sleep(Settings.Default.Duration);
+                WritePLC(myPlc.OutNum[OUT]);
+                Thread.Sleep(200);
                 WritePLC(myPlc.OutNum["无"]);
+                string t = DateTime.Now.ToString("yyyy-MM-dd");
+                string path = Application.StartupPath + "\\NG\\" + t;
+                Directory.CreateDirectory(path);
+                VisinoMod.SaveImage(image, path, DateTime.Now.ToString("HH-mm-ss") + ".jpg");
             })
             { IsBackground = true }.Start();
 
         }
-        private static void TreatOK()
+        private static void TreatOK(object image)
         {
             new Thread(() =>
             {
@@ -191,6 +217,11 @@ namespace FFAlarm
                 WritePLC(myPlc.OutNum[OUT]);
                 Thread.Sleep(Settings.Default.Duration);
                 WritePLC(myPlc.OutNum["无"]);
+                string t = DateTime.Now.ToString("yyyy-MM-dd");
+                string path = Application.StartupPath + "\\OK\\" + t;
+                Directory.CreateDirectory(path);
+                VisinoMod.SaveImage(image,path, DateTime.Now.ToString("HH-mm-ss") + ".jpg");
+
             })
             { IsBackground = true }.Start();
         }

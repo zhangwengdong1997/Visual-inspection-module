@@ -23,7 +23,7 @@ namespace LS_VisionMod
         public 字符识别(TestItem testItem)
         {
             this.camName = testItem.CamName;
-            this.matching = testItem.Match;
+            this.matchName = testItem.MatchName;
             this.name = testItem.name;
             Create(testItem.parameters);
         }

@@ -41,14 +41,15 @@
             this.rdo矩形区域 = new System.Windows.Forms.RadioButton();
             this.btn创建模板 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btn下一张 = new System.Windows.Forms.Button();
+            this.btn上一张 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmb定位模板类型 = new System.Windows.Forms.ComboBox();
             this.btn减少区域 = new System.Windows.Forms.Button();
             this.btn添加区域 = new System.Windows.Forms.Button();
             this.btn新建区域 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chb完整性判断 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +67,7 @@
             // lab本地图片数量
             // 
             this.lab本地图片数量.AutoSize = true;
-            this.lab本地图片数量.Location = new System.Drawing.Point(791, 465);
+            this.lab本地图片数量.Location = new System.Drawing.Point(819, 462);
             this.lab本地图片数量.Name = "lab本地图片数量";
             this.lab本地图片数量.Size = new System.Drawing.Size(77, 12);
             this.lab本地图片数量.TabIndex = 71;
@@ -82,10 +83,12 @@
             this.rdo本地模式.TabStop = true;
             this.rdo本地模式.Text = "本地模式";
             this.rdo本地模式.UseVisualStyleBackColor = true;
+            this.rdo本地模式.CheckedChanged += new System.EventHandler(this.rdo本地模式_CheckedChanged);
             // 
             // rdo相机模式
             // 
             this.rdo相机模式.AutoSize = true;
+            this.rdo相机模式.Checked = true;
             this.rdo相机模式.Location = new System.Drawing.Point(687, 496);
             this.rdo相机模式.Name = "rdo相机模式";
             this.rdo相机模式.Size = new System.Drawing.Size(71, 16);
@@ -126,6 +129,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pictureBox1.Location = new System.Drawing.Point(13, 9);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(584, 561);
@@ -183,23 +187,25 @@
             this.label2.TabIndex = 64;
             this.label2.Text = "模板匹配率";
             // 
-            // button10
+            // btn下一张
             // 
-            this.button10.Location = new System.Drawing.Point(456, 576);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(141, 40);
-            this.button10.TabIndex = 63;
-            this.button10.Text = "下一张";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btn下一张.Location = new System.Drawing.Point(456, 576);
+            this.btn下一张.Name = "btn下一张";
+            this.btn下一张.Size = new System.Drawing.Size(141, 40);
+            this.btn下一张.TabIndex = 63;
+            this.btn下一张.Text = "下一张";
+            this.btn下一张.UseVisualStyleBackColor = true;
+            this.btn下一张.Click += new System.EventHandler(this.btn下一张_Click);
             // 
-            // button9
+            // btn上一张
             // 
-            this.button9.Location = new System.Drawing.Point(13, 576);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(141, 40);
-            this.button9.TabIndex = 62;
-            this.button9.Text = "上一张";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btn上一张.Location = new System.Drawing.Point(13, 576);
+            this.btn上一张.Name = "btn上一张";
+            this.btn上一张.Size = new System.Drawing.Size(141, 40);
+            this.btn上一张.TabIndex = 62;
+            this.btn上一张.Text = "上一张";
+            this.btn上一张.UseVisualStyleBackColor = true;
+            this.btn上一张.Click += new System.EventHandler(this.btn上一张_Click);
             // 
             // label1
             // 
@@ -260,10 +266,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "形状选择";
             // 
+            // chb完整性判断
+            // 
+            this.chb完整性判断.AutoSize = true;
+            this.chb完整性判断.Location = new System.Drawing.Point(701, 462);
+            this.chb完整性判断.Name = "chb完整性判断";
+            this.chb完整性判断.Size = new System.Drawing.Size(84, 16);
+            this.chb完整性判断.TabIndex = 74;
+            this.chb完整性判断.Text = "完整性判断";
+            this.chb完整性判断.UseVisualStyleBackColor = true;
+            // 
             // 匹配定位
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chb完整性判断);
             this.Controls.Add(this.btn保存模板);
             this.Controls.Add(this.lab本地图片数量);
             this.Controls.Add(this.rdo本地模式);
@@ -274,8 +291,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn创建模板);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button9);
+            this.Controls.Add(this.btn下一张);
+            this.Controls.Add(this.btn上一张);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmb定位模板类型);
             this.Controls.Add(this.btn减少区域);
@@ -310,13 +327,14 @@
         private System.Windows.Forms.RadioButton rdo矩形区域;
         private System.Windows.Forms.Button btn创建模板;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btn下一张;
+        private System.Windows.Forms.Button btn上一张;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmb定位模板类型;
         private System.Windows.Forms.Button btn减少区域;
         private System.Windows.Forms.Button btn添加区域;
         private System.Windows.Forms.Button btn新建区域;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chb完整性判断;
     }
 }

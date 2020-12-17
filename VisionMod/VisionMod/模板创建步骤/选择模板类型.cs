@@ -20,7 +20,7 @@ namespace LS_VisionMod.模板创建步骤
             this.model = model;
             this.Dock = DockStyle.Fill;
         }
-        public void Save()
+        public void Add()
         {
             //设置模板名称
             model.modelName = txt模板名称.Text;
@@ -74,7 +74,6 @@ namespace LS_VisionMod.模板创建步骤
                 stepNames.RemoveAt(stepNames.Count - 1);
                 lvwModelStep.Items.RemoveAt(lvwModelStep.Items.Count - 1);
             }
-
         }
 
         private void btn默认_Click(object sender, EventArgs e)
@@ -87,5 +86,9 @@ namespace LS_VisionMod.模板创建步骤
             ShowStepList("检测项添加");
         }
 
+        public void Revise()
+        {
+
+        }
     }
 }

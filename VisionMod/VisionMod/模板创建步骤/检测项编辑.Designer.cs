@@ -28,22 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn修改使用相机 = new System.Windows.Forms.Button();
             this.dgv检测项 = new System.Windows.Forms.DataGridView();
             this.btn修改匹配定位模板 = new System.Windows.Forms.Button();
             this.btn修改检测项功能 = new System.Windows.Forms.Button();
+            this.btn修改使用相机 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv检测项)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btn修改使用相机
-            // 
-            this.btn修改使用相机.Location = new System.Drawing.Point(549, 73);
-            this.btn修改使用相机.Name = "btn修改使用相机";
-            this.btn修改使用相机.Size = new System.Drawing.Size(156, 68);
-            this.btn修改使用相机.TabIndex = 1;
-            this.btn修改使用相机.Text = "修改使用相机";
-            this.btn修改使用相机.UseVisualStyleBackColor = true;
-            this.btn修改使用相机.Click += new System.EventHandler(this.btn修改使用相机_Click);
             // 
             // dgv检测项
             // 
@@ -74,6 +64,16 @@
             this.btn修改检测项功能.UseVisualStyleBackColor = true;
             this.btn修改检测项功能.Click += new System.EventHandler(this.btn修改检测项功能_Click);
             // 
+            // btn修改使用相机
+            // 
+            this.btn修改使用相机.Location = new System.Drawing.Point(549, 73);
+            this.btn修改使用相机.Name = "btn修改使用相机";
+            this.btn修改使用相机.Size = new System.Drawing.Size(156, 68);
+            this.btn修改使用相机.TabIndex = 1;
+            this.btn修改使用相机.Text = "修改使用相机";
+            this.btn修改使用相机.UseVisualStyleBackColor = true;
+            this.btn修改使用相机.Click += new System.EventHandler(this.btn修改使用相机_Click);
+            // 
             // 检测项编辑
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -85,15 +85,16 @@
             this.Name = "检测项编辑";
             this.Size = new System.Drawing.Size(993, 634);
             this.Load += new System.EventHandler(this.检测项编辑_Load);
+            this.Enter += new System.EventHandler(this.检测项编辑_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dgv检测项)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btn修改使用相机;
         private System.Windows.Forms.DataGridView dgv检测项;
         private System.Windows.Forms.Button btn修改匹配定位模板;
         private System.Windows.Forms.Button btn修改检测项功能;
+        private System.Windows.Forms.Button btn修改使用相机;
     }
 }

@@ -21,7 +21,7 @@ namespace LS_VisionMod
         public 区域筛选计数(TestItem testItem)
         {
             this.camName = testItem.CamName;
-            this.matching = testItem.Match;
+            this.matchName = testItem.MatchName;
             this.name = testItem.name;
             Create(testItem.parameters);
         }

@@ -21,5 +21,7 @@ namespace LS_VisionMod
         void SetHalconImage(HObject ho_image);
 
         void Find(HObject inImage, List<Parameter> inParameters, out string outMessage);
+
+        void Create(TestItem testItem);
     }
 }
